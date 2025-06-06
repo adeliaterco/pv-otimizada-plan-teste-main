@@ -119,7 +119,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10">
                   <img
-                    src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.webp"
+                    src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro-scaled.webp"
                     alt="Logo Plano A - Reconquista"
                     className="w-full h-full object-cover"
                     loading="eager"
