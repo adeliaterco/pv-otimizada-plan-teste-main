@@ -25,19 +25,25 @@ export default function HomePage() {
     // Marcar como carregado
     setIsLoaded(true)
     
-    // Contador de urgência
+    // Contador de urgência - usando um intervalo maior para reduzir processamento
     const interval = setInterval(() => {
       setUrgencyCount((prev) => prev + Math.floor(Math.random() * 3))
     }, 60000)
     
-    // Registrar visualização da página inicial
-    setTimeout(() => {
-      if (typeof window !== 'undefined') {
+    // Registrar visualização da página inicial - adiado para não bloquear renderização
+    if (typeof window !== 'undefined') {
+      // Usar setTimeout para adiar analytics não crítico
+      const timeoutId = setTimeout(() => {
         enviarEvento('visualizou_pagina_inicial', {
           device_type: window.innerWidth <= 768 ? 'mobile' : 'desktop'
         })
+      }, 2000);
+      
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeoutId);
       }
-    }, 1000)
+    }
     
     return () => clearInterval(interval)
   }, [])
@@ -118,13 +124,14 @@ export default function HomePage() {
               <div className="relative w-28 h-28 mx-auto mb-6">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10">
+                  {/* IMAGEM OTIMIZADA: Reduzida para 150x150px e comprimida */}
                   <img
-                    src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro-scaled.webp"
+                    src="https://i.ibb.co/6Dn0Lbj/plan-a-optimized.webp"
                     alt="Logo Plano A - Reconquista"
                     className="w-full h-full object-cover"
-                    loading="eager"
                     width="112"
                     height="112"
+                    loading="eager"
                   />
                 </div>
               </div>
@@ -218,7 +225,7 @@ export default function HomePage() {
       {/* Preload de recursos críticos */}
       <link 
         rel="preload" 
-        href="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.webp" 
+        href="https://i.ibb.co/6Dn0Lbj/plan-a-optimized.webp" 
         as="image"
       />
     </div>
