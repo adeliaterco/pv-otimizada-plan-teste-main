@@ -8,25 +8,25 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
 import Head from "next/head"
 
-// Função otimizada para enviar eventos ao Google Analytics
+// Función optimizada para enviar eventos a Google Analytics
 function enviarEvento(nombre_evento, propriedades = {}) {
   try {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', nombre_evento, propriedades);
     } else if (typeof window !== 'undefined') {
-      // Fila de eventos simplificada
+      // Cola de eventos simplificada
       window._gtagEvents = window._gtagEvents || [];
       window._gtagEvents.push({event: nombre_evento, props: propriedades});
     }
   } catch (error) {
-    console.error('Erro ao enviar evento:', error);
+    console.error('Error al enviar evento:', error);
   }
 }
 
 export default function HomePage() {
   const router = useRouter()
   const [isLoaded, setIsLoaded] = useState(false)
-  const [isLoading, setIsLoading] = useState(false) // Alterado para false inicialmente
+  const [isLoading, setIsLoading] = useState(false) // Cambiado a false inicialmente
   const [isOnline, setIsOnline] = useState(true)
   const [urgencyCount, setUrgencyCount] = useState(127)
   const [loadingProgress, setLoadingProgress] = useState(10)
@@ -34,7 +34,7 @@ export default function HomePage() {
   const [errorMessage, setErrorMessage] = useState("")
   const [isLowEndDevice, setIsLowEndDevice] = useState(false)
   
-  // Detectar dispositivos de baixo desempenho - movido para depois do primeiro render
+  // Detectar dispositivos de bajo rendimiento - movido después del primer render
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setIsLowEndDevice(
@@ -43,7 +43,7 @@ export default function HomePage() {
         window.innerWidth < 768
       )
       
-      // Verificar conexão de rede
+      // Verificar conexión de red
       setIsOnline(navigator.onLine)
       const handleOnline = () => setIsOnline(true)
       const handleOffline = () => setIsOnline(false)
@@ -58,24 +58,24 @@ export default function HomePage() {
     }
   }, [])
   
-  // Efeito separado para métricas e carregamento - executado após o primeiro render
+  // Efecto separado para métricas y carga - ejecutado después del primer render
   useEffect(() => {
     if (typeof window === 'undefined') return
     
-    // Marcar como carregado imediatamente para melhorar LCP
+    // Marcar como cargado inmediatamente para mejorar LCP
     setIsLoaded(true)
     
-    // Registrar visualização da página inicial - adiado para não bloquear renderização
+    // Registrar visualización de la página inicial - diferido para no bloquear renderización
     setTimeout(() => {
-      enviarEvento('visualizou_pagina_inicial', {
+      enviarEvento('visualizo_pagina_inicial', {
         device_type: window.innerWidth <= 768 ? 'mobile' : 'desktop'
       })
       
-      // Registrar métricas de performance - adiado para não bloquear renderização
+      // Registrar métricas de rendimiento - diferido para no bloquear renderización
       if ('performance' in window && 'getEntriesByType' in window.performance) {
         const perfData = window.performance.getEntriesByType('navigation')[0]
         if (perfData) {
-          enviarEvento('metricas_performance', {
+          enviarEvento('metricas_rendimiento', {
             domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
             loadTime: perfData.loadEventEnd - perfData.fetchStart,
             deviceType: window.innerWidth <= 768 ? 'mobile' : 'desktop'
@@ -84,17 +84,17 @@ export default function HomePage() {
       }
     }, 1000)
     
-    // Contador de urgência com intervalo otimizado - adiado para não bloquear renderização
+    // Contador de urgencia con intervalo optimizado - diferido para no bloquear renderización
     const interval = setInterval(() => {
       setUrgencyCount((prev) => prev + Math.floor(Math.random() * 3))
     }, 45000)
     
-    // Monitorar erros de carregamento
+    // Monitorear errores de carga
     const handleError = (error) => {
-      console.error('Erro na página:', error)
-      // Evitar enviar eventos de analytics durante carregamento inicial
+      console.error('Error en la página:', error)
+      // Evitar enviar eventos de analytics durante carga inicial
       setTimeout(() => {
-        enviarEvento('erro_pagina_inicial', {
+        enviarEvento('error_pagina_inicial', {
           error_message: error.message
         })
       }, 2000)
@@ -107,24 +107,24 @@ export default function HomePage() {
     }
   }, [])
   
-  // Função simplificada para iniciar o quiz
+  // Función simplificada para iniciar el quiz
   const handleStart = () => {
-    // Evitar múltiplos cliques
+    // Evitar múltiples clics
     if (isLoading) return
     
-    // Mostrar feedback visual imediato
+    // Mostrar feedback visual inmediato
     setIsLoading(true)
-    setLoadingMessage("Preparando seu teste personalizado...")
+    setLoadingMessage("Preparando tu test personalizado...")
     setLoadingProgress(15)
     
-    // Registra evento de início do quiz
-    enviarEvento('iniciou_quiz', {
+    // Registra evento de inicio del quiz
+    enviarEvento('inicio_quiz', {
       device_type: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'mobile' : 'desktop'
     })
     
     try {
       if (typeof window !== 'undefined') {
-        // Incrementar progresso para feedback visual
+        // Incrementar progreso para feedback visual
         const progressInterval = setInterval(() => {
           setLoadingProgress(prev => {
             if (prev >= 90) {
@@ -138,7 +138,7 @@ export default function HomePage() {
         // Preservar UTMs de forma simplificada
         let targetUrl = '/quiz/1'
         
-        // Verificar se há UTMs na URL atual - simplificado
+        // Verificar si hay UTMs en la URL actual - simplificado
         if (window.location.search) {
           const currentParams = new URLSearchParams(window.location.search)
           const utmParams = new URLSearchParams()
@@ -149,13 +149,13 @@ export default function HomePage() {
             }
           }
           
-          // Adicionar UTMs à URL de destino se existirem
+          // Agregar UTMs a la URL de destino si existen
           if (utmParams.toString()) {
             targetUrl += `?${utmParams.toString()}`
           }
         }
         
-        // Usar Next.js Router para navegação mais suave
+        // Usar Next.js Router para navegación más suave
         setTimeout(() => {
           clearInterval(progressInterval)
           setLoadingProgress(100)
@@ -163,36 +163,36 @@ export default function HomePage() {
         }, 800)
       }
     } catch (error) {
-      console.error('Erro ao processar redirecionamento:', error)
+      console.error('Error al procesar redirección:', error)
       setLoadingProgress(0)
       setIsLoading(false)
-      setErrorMessage("Houve um problema ao iniciar o teste. Tente novamente.")
+      setErrorMessage("Hubo un problema al iniciar el test. Inténtalo de nuevo.")
     }
   }
 
   return (
     <>
       <Head>
-        {/* Preload da imagem principal para melhorar LCP */}
+        {/* Preload de la imagen principal para mejorar LCP */}
         <link 
           rel="preload" 
           href="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png" 
           as="image"
           fetchpriority="high"
         />
-        {/* Preconnect para domínios externos */}
+        {/* Preconnect para dominios externos */}
         <link rel="preconnect" href="https://comprarplanseguro.shop" />
-        {/* Meta tags para SEO e performance */}
+        {/* Meta tags para SEO y rendimiento */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="description" content="Descubra se ainda é possível reconquistar seu ex em apenas 2 minutos com o teste do Plano A Reconquista" />
+        <meta name="description" content="Descubre si aún es posible reconquistar a tu ex en solo 2 minutos con el test del Plan A Reconquista" />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 flex items-center justify-center p-4">
-        {/* Indicador de carregamento melhorado */}
+        {/* Indicador de carga mejorado */}
         {isLoading && (
           <div className="fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-50">
             <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500 mb-4"></div>
-            <p className="text-white text-lg">{loadingMessage || "Carregando..."}</p>
+            <p className="text-white text-lg">{loadingMessage || "Cargando..."}</p>
             <div className="w-64 h-2 bg-gray-700 rounded-full mt-4">
               <div 
                 className="h-full bg-orange-500 rounded-full transition-all duration-300"
@@ -202,7 +202,7 @@ export default function HomePage() {
           </div>
         )}
         
-        {/* Mensagem de erro quando aplicável */}
+        {/* Mensaje de error cuando aplique */}
         {errorMessage && (
           <div className="fixed top-4 left-0 right-0 mx-auto max-w-md bg-red-100 text-red-800 p-4 rounded-lg shadow-lg text-center font-medium z-50">
             {errorMessage}
@@ -218,25 +218,25 @@ export default function HomePage() {
         {/* Alerta de offline */}
         {!isOnline && (
           <div className="fixed top-0 left-0 right-0 bg-red-100 text-red-800 p-3 text-center font-medium z-50">
-            Você parece estar offline. Verifique sua conexão para continuar.
+            Parece que estás sin conexión. Verifica tu internet para continuar.
           </div>
         )}
         
-        {/* Conteúdo principal - sem animações iniciais para melhorar FCP e LCP */}
+        {/* Contenido principal - sin animaciones iniciales para mejorar FCP y LCP */}
         <div className="max-w-3xl w-full text-center">
           <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-lg border-orange-500/30 shadow-2xl border-2">
             <CardContent className="p-8">
               <div className="mb-8">
-                {/* Imagem principal - elemento LCP */}
+                {/* Imagen principal - elemento LCP */}
                 <div className="relative w-28 h-28 mx-auto mb-6">
-                  {/* Efeitos de luz simplificados */}
+                  {/* Efectos de luz simplificados */}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
                   
-                  {/* Imagem arredondada otimizada - potencial LCP */}
+                  {/* Imagen redondeada optimizada - potencial LCP */}
                   <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10">
                     <img
                       src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-                      alt="Logo Plano A - Reconquista"
+                      alt="Logo Plan A - Reconquista"
                       className="w-full h-full object-cover"
                       fetchpriority="high"
                       width="112"
@@ -246,57 +246,57 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <h1 className="text-5xl md:text-6xl font-bold text-white mb-4" id="lcp-title">PLANO A</h1>
+                <h1 className="text-5xl md:text-6xl font-bold text-white mb-4" id="lcp-title">PLAN A</h1>
                 <h2 className="text-3xl md:text-4xl font-semibold text-orange-400 mb-8">RECONQUISTA</h2>
               </div>
 
               <div className="mb-10">
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
-                  Descubra se ainda é possível reconquistar seu ex
+                  Descubre si aún es posible reconquistar a tu ex
                   <br />
-                  <span className="text-orange-400">Em apenas 2 minutos</span>
+                  <span className="text-orange-400">En solo 2 minutos</span>
                 </h3>
 
                 <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
                   <p className="text-lg text-blue-800 font-semibold mb-2">
-                    ✓ Teste rápido e personalizado
+                    ✓ Test rápido y personalizado
                   </p>
                   <p className="text-blue-700">
-                    Responda algumas perguntas simples e receba uma análise da sua situação específica.
+                    Responde algunas preguntas simples y recibe un análisis de tu situación específica.
                   </p>
                 </div>
 
                 <div className="bg-green-50 border border-green-300 rounded-lg p-6 mb-8">
                   <h4 className="text-xl font-bold text-green-800 mb-3">
-                    ✅ DESCUBRA AGORA SE AINDA HÁ CHANCE DE RECONQUISTA
+                    ✅ DESCUBRE AHORA SI AÚN HAY POSIBILIDAD DE RECONQUISTA
                   </h4>
                   <p className="text-green-700 text-lg">
-                    Teste rápido de 2 minutos revela se seu caso tem solução e qual estratégia usar
+                    Test rápido de 2 minutos revela si tu caso tiene solución y qué estrategia usar
                   </p>
                 </div>
 
                 <div className="flex justify-center items-center gap-6 mb-8">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-blue-400">{urgencyCount}</div>
-                    <div className="text-sm text-gray-300">pessoas fizeram hoje</div>
+                    <div className="text-sm text-gray-300">personas lo hicieron hoy</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-green-400">91%</div>
-                    <div className="text-sm text-gray-300">taxa de sucesso</div>
+                    <div className="text-sm text-gray-300">tasa de éxito</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-orange-400">21</div>
-                    <div className="text-sm text-gray-300">dias ou menos</div>
+                    <div className="text-sm text-gray-300">días o menos</div>
                   </div>
                 </div>
               </div>
 
               <div>
                 <p className="text-sm text-gray-300 mb-6">
-                  Após clicar, você responderá algumas perguntas simples para receber sua análise personalizada.
+                  Después de hacer clic, responderás algunas preguntas simples para recibir tu análisis personalizado.
                 </p>
                 
-                {/* Botão com feedback visual de carregamento */}
+                {/* Botón con feedback visual de carga */}
                 <Button
                   onClick={handleStart}
                   disabled={isLoading || !isOnline}
@@ -305,12 +305,12 @@ export default function HomePage() {
                 >
                   {isLoading ? (
                     <>
-                      <span>INICIANDO SEU TESTE...</span>
+                      <span>INICIANDO TU TEST...</span>
                       <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     </>
                   ) : (
                     <>
-                      INICIAR TESTE GRATUITO
+                      INICIAR TEST GRATUITO
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </>
                   )}
@@ -318,21 +318,21 @@ export default function HomePage() {
 
                 <div className="flex items-center justify-center gap-2 text-white mb-4">
                   <Clock className="w-5 h-5" />
-                  <p className="text-sm">Leva apenas 2 minutos • Resultado imediato</p>
+                  <p className="text-sm">Solo toma 2 minutos • Resultado inmediato</p>
                 </div>
 
                 <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mb-4">
                   <div className="flex items-center justify-center gap-2 text-amber-800">
                     <Users className="w-5 h-5" />
                     <p className="text-sm font-bold">
-                      🔥 ATENÇÃO: Mais de 200 pessoas fazem este teste por dia. Não perca sua oportunidade!
+                      🔥 ATENCIÓN: Más de 200 personas hacen este test por día. ¡No pierdas tu oportunidad!
                     </p>
                   </div>
                 </div>
                 
                 <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
                   <Lock className="w-3 h-3 mr-1" />
-                  Suas respostas são confidenciais e protegidas
+                  Tus respuestas son confidenciales y protegidas
                 </div>
               </div>
             </CardContent>
@@ -340,19 +340,19 @@ export default function HomePage() {
         </div>
       </div>
       
-      {/* Script para identificar o LCP para o PageSpeed */}
+      {/* Script para identificar el LCP para el PageSpeed */}
       <script dangerouslySetInnerHTML={{
         __html: `
-          // Ajuda o PageSpeed a identificar o LCP
+          // Ayuda al PageSpeed a identificar el LCP
           document.addEventListener('DOMContentLoaded', function() {
-            // Marcar elementos potenciais de LCP
+            // Marcar elementos potenciales de LCP
             const lcpCandidates = ['lcp-image', 'lcp-title'];
             lcpCandidates.forEach(id => {
               const el = document.getElementById(id);
               if (el) el.setAttribute('fetchpriority', 'high');
             });
             
-            // Reportar o LCP para o PageSpeed
+            // Reportar el LCP para el PageSpeed
             new PerformanceObserver((entryList) => {
               for (const entry of entryList.getEntries()) {
                 console.log('LCP candidate:', entry.element);
