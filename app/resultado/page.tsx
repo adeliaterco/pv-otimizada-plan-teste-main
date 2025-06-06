@@ -90,270 +90,400 @@ export default function ResultPage() {
   const getPersonalizedPronoun = () => {
     return userGender === "FEMININO" ? "él" : "ella";
   }
+  
+  // Função para feedback tátil em dispositivos móveis
+  const handleTouchFeedback = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4" ref={contentRef}>
-      {/* Navegación interna */}
+      {/* Navegação fixa para mobile */}
+      <div className="md:hidden sticky top-0 z-50 bg-black/90 backdrop-blur-md p-2 border-b border-orange-500">
+        <div className="flex justify-between items-center">
+          <h2 className="text-orange-400 font-bold text-sm">Tu Plan de Reconquista</h2>
+          <div className="flex items-center gap-2">
+            <Button 
+              onClick={() => scrollToSection('resultado')}
+              variant="ghost" 
+              size="sm"
+              className="text-white text-xs"
+            >
+              Resultado
+            </Button>
+            <Button 
+              onClick={handlePurchase}
+              size="sm"
+              className="bg-yellow-500 text-black font-bold text-xs"
+              onTouchStart={handleTouchFeedback}
+            >
+              Activar
+            </Button>
+          </div>
+        </div>
+      </div>
 
       <div className="max-w-6xl mx-auto">
+        {/* Banner de escassez no topo */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : -20 }}
-          className="text-center mb-12"
+          className="bg-red-600 text-white p-3 rounded-lg text-center mb-6 animate-pulse"
+        >
+          <AlertTriangle className="w-5 h-5 inline-block mr-2" />
+          <span className="font-bold">AVISO IMPORTANTE:</span> Debido a la alta demanda, solo quedan <span className="font-bold text-yellow-300">7 cupos</span> disponibles hoy para activar el Plan A con todos los bonos.
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : -20 }}
+          className="text-center mb-8"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{getPersonalizedTitle()}</h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-orange-400 mb-4">EN 21 DÍAS O MENOS</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
             <span className="font-bold text-orange-300">Aunque {getPersonalizedPronoun()} haya dicho que nunca más quiere verte</span> y hayas intentado todo sin éxito.
           </p>
+        </motion.div>
 
-          {/* Comparativo Antes y Después */}
-          <div id="historia" className="max-w-4xl mx-auto mb-12">
-            <Card className="bg-gray-50 border-2 border-gray-300 overflow-hidden">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">DÓNDE ESTÁS VS. DÓNDE ESTARÁS</h3>
-                
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="bg-red-50 p-6 rounded-xl border border-red-200">
-                    <h4 className="text-xl font-bold text-red-800 mb-4">AHORA</h4>
-                    <ul className="text-left space-y-3">
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <span className="text-red-600">✗</span>
-                        </div>
-                        <span className="text-red-700">Sufriendo por el rechazo y el dolor de la separación</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <span className="text-red-600">✗</span>
-                        </div>
-                        <span className="text-red-700">Intentando estrategias que solo empeoran la situación</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <span className="text-red-600">✗</span>
-                        </div>
-                        <span className="text-red-700">Sin saber qué hacer para recuperar su atención</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <span className="text-red-600">✗</span>
-                        </div>
-                        <span className="text-red-700">Perdiendo noches de sueño pensando en qué salió mal</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-green-50 p-6 rounded-xl border border-green-200">
-                    <h4 className="text-xl font-bold text-green-800 mb-4">EN 21 DÍAS</h4>
-                    <ul className="text-left space-y-3">
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <Check className="w-5 h-5 text-green-600" />
-                        </div>
-                        <span className="text-green-700">Reconquistando su atención e interés</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <Check className="w-5 h-5 text-green-600" />
-                        </div>
-                        <span className="text-green-700">Aplicando estrategias que realmente funcionan</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <Check className="w-5 h-5 text-green-600" />
-                        </div>
-                        <span className="text-green-700">Viendo cómo {getPersonalizedPronoun()} te mira con ese brillo en los ojos nuevamente</span>
-                      </li>
-                      <li className="flex items-start">
-                        <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
-                          <Check className="w-5 h-5 text-green-600" />
-                        </div>
-                        <span className="text-green-700">Construyendo una relación aún más fuerte que antes</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Imágenes animadas - Plan A y 21 Gatillos */}
-                <div className="mt-8 relative">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-500/30 to-red-600/30 blur-2xl animate-pulse"></div>
-                  <div
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/20 to-orange-500/20 blur-xl animate-pulse"
-                    style={{ animationDelay: "1s" }}
-                  ></div>
-                  <div
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/15 to-pink-500/15 blur-lg animate-pulse"
-                    style={{ animationDelay: "2s" }}
-                  ></div>
-
-                  <motion.div
-                    animate={{
-                      y: [0, -12, 0],
-                      scale: [1, 1.02, 1],
-                      rotate: [0, 0.8, -0.8, 0],
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "easeInOut",
-                    }}
-                    className="relative z-10 bg-white rounded-xl p-3 shadow-2xl border-2 border-orange-400 mb-8"
-                  >
-                    <img
-                      src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-                      alt="Resultado Real de Transformación"
-                      className="w-full h-auto rounded-lg shadow-lg"
-                    />
-                  </motion.div>
-
-                  {/* 21 Gatillos Emocionales */}
-                  <motion.div
-                    animate={{
-                      y: [0, -10, 0],
-                      scale: [1, 1.03, 1],
-                      rotate: [0, -0.7, 0.7, 0],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "easeInOut",
-                      delay: 1,
-                    }}
-                    className="relative z-10 bg-white rounded-xl p-3 shadow-2xl border-2 border-yellow-400 mt-12"
-                  >
-                    <img
-                      src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-21-gatilhos-A-Livro.png"
-                      alt="21 Gatillos Emocionales"
-                      className="w-full h-auto rounded-lg shadow-lg"
-                    />
-                    <div className="absolute -top-4 -right-4 bg-yellow-500 text-black font-bold py-1 px-3 rounded-full text-sm transform rotate-12 shadow-lg">
-                      ¡INCLUIDO!
-                    </div>
-                  </motion.div>
-
-                  {/* Partículas animadas para ambas imágenes */}
-                  {[...Array(12)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className={`absolute w-3 h-3 rounded-full opacity-60 ${
-                        i % 3 === 0 ? "bg-orange-400" : i % 3 === 1 ? "bg-yellow-400" : "bg-red-400"
-                      }`}
-                      animate={{
-                        x: [0, Math.random() * 120 - 60, 0],
-                        y: [0, Math.random() * 120 - 60, 0],
-                        opacity: [0.3, 1, 0.3],
-                        scale: [0.5, 1.8, 0.5],
-                      }}
-                      transition={{
-                        duration: 4 + Math.random() * 3,
-                        repeat: Number.POSITIVE_INFINITY,
-                        delay: i * 0.3,
-                      }}
-                      style={{
-                        left: `${15 + Math.random() * 70}%`,
-                        top: `${i < 6 ? 15 + Math.random() * 30 : 50 + Math.random() * 30}%`,
-                      }}
-                    />
-                  ))}
-                  
-                  {/* Texto explicativo */}
-                  <div className="mt-6 bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border border-yellow-200 relative z-10">
-                    <h4 className="text-xl font-bold text-orange-800 mb-2 text-center">PLAN A + 21 GATILLOS EMOCIONALES</h4>
-                    <p className="text-orange-700 text-center">
-                      Además del sistema completo Plan A, recibirás los <span className="font-bold">21 Gatillos Emocionales</span> que 
-                      activan el deseo inmediato y despiertan sentimientos profundos en {getPersonalizedPronoun()}, 
-                      acelerando tu proceso de reconquista.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sobre el Creador del Método */}
-          <div id="metodo" className="max-w-4xl mx-auto mb-12">
-            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 text-white border-2 border-orange-500">
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-orange-400 flex-shrink-0">
-                    <img 
-                      src="https://optimalhealthscout.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-01T212625.544.png" 
-                      alt="Creador del Método" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  
-                  <div className="text-left">
-                    <h3 className="text-2xl font-bold text-orange-400 mb-2">CONOCE AL CREADOR DEL MÉTODO</h3>
-                    <p className="text-gray-300 mb-4">
-                      Después de ayudar a más de <span className="text-orange-300 font-bold">3.847 personas</span> a reconquistar sus relaciones, 
-                      desarrollé un sistema que funciona para <span className="text-orange-300 font-bold">cualquier tipo de ruptura</span>, 
-                      incluso en los casos más difíciles.
-                    </p>
-                    <div className="flex items-center gap-4 mb-2">
-                      <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                        87% DE ÉXITO
-                      </div>
-                      <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                        ESPECIALISTA EN RECONQUISTA
-                      </div>
-                    </div>
-                    <p className="text-gray-300 text-sm">
-                      "Mi misión es ayudar a las personas a recuperar el amor que parecía perdido para siempre."
-                    </p>
-                  </div>
-                </div>
-
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Timeline de Resultados */}
-          <div className="max-w-4xl mx-auto mb-12">
-            <h3 className="text-3xl font-bold text-white text-center mb-8">QUÉ ESPERAR EN LOS PRÓXIMOS 21 DÍAS</h3>
-            
-            <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-orange-500"></div>
+        {/* RESULTADO DO QUIZ - SEÇÃO IMPACTANTE */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : -20 }}
+          id="resultado"
+          className="max-w-4xl mx-auto mb-8"
+        >
+          <Card className="bg-gradient-to-r from-orange-600 to-red-600 text-white overflow-hidden border-4 border-yellow-400 shadow-2xl">
+            <CardContent className="p-6">
+              <div className="text-center mb-4">
+                <h3 className="text-2xl font-bold text-white">TU RESULTADO DEL QUIZ</h3>
+                <div className="w-24 h-1 bg-yellow-400 mx-auto mt-2"></div>
+              </div>
               
-              {/* Día 1-3 */}
-              <div className="relative z-10 mb-12">
-                <div className="flex items-center">
-                  <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
-                    <h4 className="text-xl font-bold text-orange-400">DÍAS 1-3</h4>
-                    <p className="text-gray-300">Fase de Desintoxicación Emocional</p>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="w-full md:w-1/3">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-60 animate-pulse"></div>
+                    <div className="relative z-10 w-40 h-40 mx-auto bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-4 border-white">
+                      <div className="text-center">
+                        <span className="text-4xl font-extrabold text-white">97%</span>
+                        <p className="text-sm font-bold text-white">COMPATIBLE</p>
+                      </div>
+                    </div>
                   </div>
-                  
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
-                    <span className="text-white font-bold">1</span>
-                  </div>
-                  
-                  <div className="flex-grow md:w-5/12 md:pl-8 md:hidden">
-                    <h4 className="text-xl font-bold text-orange-400">DÍAS 1-3</h4>
-                    <p className="text-gray-300">Fase de Desintoxicación Emocional</p>
-                  </div>
-                  
-                  <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pl-8 hidden md:block">
-                    <CardContent className="p-4">
-                      <ul className="text-gray-300 space-y-2">
-                        <li className="flex items-start">
-                          <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
-                          <span>Detener comportamientos que alejan a {getPersonalizedPronoun()}</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
-                          <span>Aplicar la técnica del "Espacio Magnético"</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
-                          <span>Recuperar tu estabilidad emocional</span>
-                        </li>
-                      </ul>
-                    </CardContent>
-                  </Card>
                 </div>
                 
-                <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden">
+                <div className="w-full md:w-2/3">
+                  <h4 className="text-xl font-bold text-yellow-300 mb-2">DIAGNÓSTICO PERSONALIZADO:</h4>
+                  <p className="text-white text-lg mb-4">
+                    Basado en tus respuestas, tu situación es <span className="font-bold underline">altamente recuperable</span> con el método correcto.
+                  </p>
+                  
+                  <div className="bg-black/30 p-4 rounded-lg mb-4">
+                    <h5 className="font-bold text-yellow-300 mb-2">LO QUE DESCUBRIMOS:</h5>
+                    <ul className="space-y-2 text-white">
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1" />
+                        <span>{getPersonalizedPronoun() === "él" ? "Él" : "Ella"} aún tiene sentimientos por ti, pero hay barreras emocionales que superar</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1" />
+                        <span>Tu tipo de ruptura requiere el enfoque del Módulo 3 del Plan A</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1" />
+                        <span>Con el método correcto, puedes ver resultados en menos de 21 días</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      onClick={handlePurchase}
+                      size="lg"
+                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full"
+                      onTouchStart={handleTouchFeedback}
+                    >
+                      ACTIVAR MI PLAN PERSONALIZADO AHORA
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </motion.div>
+                </div>
+              </div>
+              
+              {/* Prova social dinâmica */}
+              <div className="mt-6 bg-black/30 p-3 rounded-lg">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center">
+                    <Users className="w-5 h-5 text-orange-400 mr-2" />
+                    <div className="text-sm text-white">
+                      <span className="font-bold text-orange-400">{recentBuyers}</span> personas activaron su plan hoy
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <Clock className="w-5 h-5 text-orange-400 mr-2" />
+                    <div className="text-sm text-white">
+                      Oferta expira en: <CountdownTimer minutes={15} seconds={0} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+        
+        {/* Comparativo Antes y Después */}
+        <div id="historia" className="max-w-4xl mx-auto mb-12">
+          <Card className="bg-gray-50 border-2 border-gray-300 overflow-hidden">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">DÓNDE ESTÁS VS. DÓNDE ESTARÁS</h3>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-red-50 p-6 rounded-xl border border-red-200">
+                  <h4 className="text-xl font-bold text-red-800 mb-4 text-center">AHORA</h4>
+                  <ul className="text-left space-y-3">
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <span className="text-red-600">✗</span>
+                      </div>
+                      <span className="text-red-700">Sufriendo por el rechazo y el dolor de la separación</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <span className="text-red-600">✗</span>
+                      </div>
+                      <span className="text-red-700">Intentando estrategias que solo empeoran la situación</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <span className="text-red-600">✗</span>
+                      </div>
+                      <span className="text-red-700">Sin saber qué hacer para recuperar su atención</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <span className="text-red-600">✗</span>
+                      </div>
+                      <span className="text-red-700">Perdiendo noches de sueño pensando en qué salió mal</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className="bg-green-50 p-6 rounded-xl border border-green-200">
+                  <h4 className="text-xl font-bold text-green-800 mb-4 text-center">EN 21 DÍAS</h4>
+                  <ul className="text-left space-y-3">
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <Check className="w-5 h-5 text-green-600" />
+                      </div>
+                      <span className="text-green-700">Reconquistando su atención e interés</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <Check className="w-5 h-5 text-green-600" />
+                      </div>
+                      <span className="text-green-700">Aplicando estrategias que realmente funcionan</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <Check className="w-5 h-5 text-green-600" />
+                      </div>
+                      <span className="text-green-700">Viendo cómo {getPersonalizedPronoun()} te mira con ese brillo en los ojos nuevamente</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="min-w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                        <Check className="w-5 h-5 text-green-600" />
+                      </div>
+                      <span className="text-green-700">Construyendo una relación aún más fuerte que antes</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Imágenes animadas - Plan A y 21 Gatillos */}
+              <div className="mt-8 relative">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-500/30 to-red-600/30 blur-2xl animate-pulse"></div>
+                <div
+                  className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/20 to-orange-500/20 blur-xl animate-pulse"
+                  style={{ animationDelay: "1s" }}
+                ></div>
+                <div
+                  className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/15 to-pink-500/15 blur-lg animate-pulse"
+                  style={{ animationDelay: "2s" }}
+                ></div>
+
+                <motion.div
+                  animate={{
+                    y: [0, -12, 0],
+                    scale: [1, 1.02, 1],
+                    rotate: [0, 0.8, -0.8, 0],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                  }}
+                  className="relative z-10 bg-white rounded-xl p-3 shadow-2xl border-2 border-orange-400 mb-8"
+                >
+                  <img
+                    src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
+                    alt="Resultado Real de Transformación"
+                    className="w-full h-auto rounded-lg shadow-lg product-image"
+                  />
+                </motion.div>
+
+                {/* 21 Gatillos Emocionales */}
+                <motion.div
+                  animate={{
+                    y: [0, -10, 0],
+                    scale: [1, 1.03, 1],
+                    rotate: [0, -0.7, 0.7, 0],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                  className="relative z-10 bg-white rounded-xl p-3 shadow-2xl border-2 border-yellow-400 mt-12"
+                >
+                  <img
+                    src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-21-gatilhos-A-Livro.png"
+                    alt="21 Gatillos Emocionales"
+                    className="w-full h-auto rounded-lg shadow-lg product-image"
+                  />
+                  <div className="absolute -top-4 -right-4 bg-yellow-500 text-black font-bold py-1 px-3 rounded-full text-sm transform rotate-12 shadow-lg">
+                    ¡INCLUIDO!
+                  </div>
+                </motion.div>
+
+                {/* Partículas animadas para ambas imágenes */}
+                {[...Array(12)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className={`absolute w-3 h-3 rounded-full opacity-60 ${
+                      i % 3 === 0 ? "bg-orange-400" : i % 3 === 1 ? "bg-yellow-400" : "bg-red-400"
+                    }`}
+                    animate={{
+                      x: [0, Math.random() * 120 - 60, 0],
+                      y: [0, Math.random() * 120 - 60, 0],
+                      opacity: [0.3, 1, 0.3],
+                      scale: [0.5, 1.8, 0.5],
+                    }}
+                    transition={{
+                      duration: 4 + Math.random() * 3,
+                      repeat: Number.POSITIVE_INFINITY,
+                      delay: i * 0.3,
+                    }}
+                    style={{
+                      left: `${15 + Math.random() * 70}%`,
+                      top: `${i < 6 ? 15 + Math.random() * 30 : 50 + Math.random() * 30}%`,
+                    }}
+                  />
+                ))}
+                
+                {/* Texto explicativo */}
+                <div className="mt-6 bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border border-yellow-200 relative z-10">
+                  <h4 className="text-xl font-bold text-orange-800 mb-2 text-center">PLAN A + 21 GATILLOS EMOCIONALES</h4>
+                  <p className="text-orange-700 text-center">
+                    Además del sistema completo Plan A, recibirás los <span className="font-bold">21 Gatillos Emocionales</span> que 
+                    activan el deseo inmediato y despiertan sentimientos profundos en {getPersonalizedPronoun()}, 
+                    acelerando tu proceso de reconquista.
+                  </p>
+                </div>
+              </div>
+              
+              {/* CTA após a apresentação dos produtos */}
+              <div className="mt-8 text-center">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Button
+                    onClick={handlePurchase}
+                    size="lg"
+                    className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                    onTouchStart={handleTouchFeedback}
+                  >
+                    QUIERO ACTIVAR MI PLAN AHORA
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </motion.div>
+                <p className="text-gray-500 text-sm mt-2">
+                  Acceso inmediato • Garantía de 30 días • Soporte prioritario
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Sobre el Creador del Método */}
+        <div id="metodo" className="max-w-4xl mx-auto mb-12">
+          <Card className="bg-gradient-to-br from-gray-800 to-gray-900 text-white border-2 border-orange-500">
+            <CardContent className="p-8">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-orange-400 flex-shrink-0">
+                  <img 
+                    src="https://optimalhealthscout.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-01T212625.544.png" 
+                    alt="Creador del Método" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+                <div className="text-left">
+                  <h3 className="text-2xl font-bold text-orange-400 mb-2">CONOCE AL CREADOR DEL MÉTODO</h3>
+                  <p className="text-gray-300 mb-4">
+                    Después de ayudar a más de <span className="text-orange-300 font-bold">3.847 personas</span> a reconquistar sus relaciones, 
+                    desarrollé un sistema que funciona para <span className="text-orange-300 font-bold">cualquier tipo de ruptura</span>, 
+                    incluso en los casos más difíciles.
+                  </p>
+                  <div className="flex items-center gap-4 mb-2">
+                    <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      87% DE ÉXITO
+                    </div>
+                    <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      ESPECIALISTA EN RECONQUISTA
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    "Mi misión es ayudar a las personas a recuperar el amor que parecía perdido para siempre."
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        {/* Timeline de Resultados */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <h3 className="text-3xl font-bold text-white text-center mb-8">QUÉ ESPERAR EN LOS PRÓXIMOS 21 DÍAS</h3>
+          
+          <div className="relative">
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-orange-500"></div>
+            
+            {/* Día 1-3 */}
+            <div className="relative z-10 mb-12">
+              <div className="flex items-center">
+                <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
+                  <h4 className="text-xl font-bold text-orange-400">DÍAS 1-3</h4>
+                  <p className="text-gray-300">Fase de Desintoxicación Emocional</p>
+                </div>
+                
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
+                  <span className="text-white font-bold">1</span>
+                </div>
+                
+                <div className="flex-grow md:w-5/12 md:pl-8 md:hidden">
+                  <h4 className="text-xl font-bold text-orange-400">DÍAS 1-3</h4>
+                  <p className="text-gray-300">Fase de Desintoxicación Emocional</p>
+                </div>
+                
+                <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pl-8 hidden md:block timeline-card">
                   <CardContent className="p-4">
                     <ul className="text-gray-300 space-y-2">
                       <li className="flex items-start">
@@ -373,101 +503,101 @@ export default function ResultPage() {
                 </Card>
               </div>
               
-              {/* Día 4-7 */}
-              <div className="relative z-10 mb-12">
-                <div className="flex items-center">
-                  <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pr-8 hidden md:block">
-                    <CardContent className="p-4">
-                      <ul className="text-gray-300 space-y-2 text-right">
-                        <li className="flex items-start justify-end">
-                          <span>Primeras señales de curiosidad de su parte</span>
-                          <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
-                        </li>
-                        <li className="flex items-start justify-end">
-                          <span>Implementar la técnica del "Gatillo de Nostalgia"</span>
-                          <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
-                        </li>
-                        <li className="flex items-start justify-end">
-                          <span>Primeros contactos indirectos</span>
-                          <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
-                        </li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  
-                  <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
-                    <h4 className="text-xl font-bold text-orange-400">DÍAS 4-7</h4>
-                    <p className="text-gray-300">Fase de Reconexión Inicial</p>
-                  </div>
-                  
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
-                    <span className="text-white font-bold">2</span>
-                  </div>
-                  
-                  <div className="flex-grow md:w-5/12 md:pl-8">
-                    <h4 className="text-xl font-bold text-orange-400 md:hidden">DÍAS 4-7</h4>
-                    <p className="text-gray-300 md:hidden">Fase de Reconexión Inicial</p>
-                  </div>
-                </div>
-                
-                <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden">
+              <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden timeline-card">
+                <CardContent className="p-4">
+                  <ul className="text-gray-300 space-y-2">
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Detener comportamientos que alejan a {getPersonalizedPronoun()}</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Aplicar la técnica del "Espacio Magnético"</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Recuperar tu estabilidad emocional</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Día 4-7 */}
+            <div className="relative z-10 mb-12">
+              <div className="flex items-center">
+                <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pr-8 hidden md:block timeline-card">
                   <CardContent className="p-4">
-                    <ul className="text-gray-300 space-y-2">
-                      <li className="flex items-start">
-                        <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                    <ul className="text-gray-300 space-y-2 text-right">
+                      <li className="flex items-start justify-end">
                         <span>Primeras señales de curiosidad de su parte</span>
+                        <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
                       </li>
-                      <li className="flex items-start">
-                        <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <li className="flex items-start justify-end">
                         <span>Implementar la técnica del "Gatillo de Nostalgia"</span>
+                        <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
                       </li>
-                      <li className="flex items-start">
-                        <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <li className="flex items-start justify-end">
                         <span>Primeros contactos indirectos</span>
+                        <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
-              </div>
-              
-              {/* Día 8-14 */}
-              <div className="relative z-10 mb-12">
-                <div className="flex items-center">
-                  <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
-                    <h4 className="text-xl font-bold text-orange-400">DÍAS 8-14</h4>
-                    <p className="text-gray-300">Fase de Atracción Renovada</p>
-                  </div>
-                  
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
-                    <span className="text-white font-bold">3</span>
-                  </div>
-                  
-                  <div className="flex-grow md:w-5/12 md:pl-8 md:hidden">
-                    <h4 className="text-xl font-bold text-orange-400">DÍAS 8-14</h4>
-                    <p className="text-gray-300">Fase de Atracción Renovada</p>
-                  </div>
-                  
-                  <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pl-8 hidden md:block">
-                    <CardContent className="p-4">
-                      <ul className="text-gray-300 space-y-2">
-                        <li className="flex items-start">
-                          <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
-                          <span>Contacto directo y reacercamiento</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
-                          <span>Despertar del interés romántico</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
-                          <span>Aplicar los 7 Pilares de la Presencia Irresistible</span>
-                        </li>
-                      </ul>
-                    </CardContent>
-                  </Card>
+                
+                <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
+                  <h4 className="text-xl font-bold text-orange-400">DÍAS 4-7</h4>
+                  <p className="text-gray-300">Fase de Reconexión Inicial</p>
                 </div>
                 
-                <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
+                  <span className="text-white font-bold">2</span>
+                </div>
+                
+                <div className="flex-grow md:w-5/12 md:pl-8">
+                  <h4 className="text-xl font-bold text-orange-400 md:hidden">DÍAS 4-7</h4>
+                  <p className="text-gray-300 md:hidden">Fase de Reconexión Inicial</p>
+                </div>
+              </div>
+              
+              <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden timeline-card">
+                <CardContent className="p-4">
+                  <ul className="text-gray-300 space-y-2">
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Primeras señales de curiosidad de su parte</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Implementar la técnica del "Gatillo de Nostalgia"</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Primeros contactos indirectos</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Día 8-14 */}
+            <div className="relative z-10 mb-12">
+              <div className="flex items-center">
+                <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
+                  <h4 className="text-xl font-bold text-orange-400">DÍAS 8-14</h4>
+                  <p className="text-gray-300">Fase de Atracción Renovada</p>
+                </div>
+                
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
+                  <span className="text-white font-bold">3</span>
+                </div>
+                
+                <div className="flex-grow md:w-5/12 md:pl-8 md:hidden">
+                  <h4 className="text-xl font-bold text-orange-400">DÍAS 8-14</h4>
+                  <p className="text-gray-300">Fase de Atracción Renovada</p>
+                </div>
+                
+                <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pl-8 hidden md:block timeline-card">
                   <CardContent className="p-4">
                     <ul className="text-gray-300 space-y-2">
                       <li className="flex items-start">
@@ -487,65 +617,102 @@ export default function ResultPage() {
                 </Card>
               </div>
               
-              {/* Día 15-21 */}
-              <div className="relative z-10">
-                <div className="flex items-center">
-                  <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pr-8 hidden md:block">
-                    <CardContent className="p-4">
-                      <ul className="text-gray-300 space-y-2 text-right">
-                        <li className="flex items-start justify-end">
-                          <span>Reconquista completa y reconciliación</span>
-                          <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
-                        </li>
-                        <li className="flex items-start justify-end">
-                          <span>Restablecimiento de la conexión emocional profunda</span>
-                          <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
-                        </li>
-                        <li className="flex items-start justify-end">
-                          <span>Construcción de una relación más fuerte</span>
-                          <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
-                        </li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  
-                  <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
-                    <h4 className="text-xl font-bold text-orange-400">DÍAS 15-21</h4>
-                    <p className="text-gray-300">Fase de Reconquista Total</p>
-                  </div>
-                  
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
-                    <span className="text-white font-bold">4</span>
-                  </div>
-                  
-                  <div className="flex-grow md:w-5/12 md:pl-8">
-                    <h4 className="text-xl font-bold text-orange-400 md:hidden">DÍAS 15-21</h4>
-                    <p className="text-gray-300 md:hidden">Fase de Reconquista Total</p>
-                  </div>
-                </div>
-                
-                <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden">
+              <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden timeline-card">
+                <CardContent className="p-4">
+                  <ul className="text-gray-300 space-y-2">
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Contacto directo y reacercamiento</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Despertar del interés romántico</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Aplicar los 7 Pilares de la Presencia Irresistible</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Día 15-21 */}
+            <div className="relative z-10">
+              <div className="flex items-center">
+                <Card className="bg-gray-800 border border-orange-500 md:w-5/12 md:pr-8 hidden md:block timeline-card">
                   <CardContent className="p-4">
-                    <ul className="text-gray-300 space-y-2">
-                      <li className="flex items-start">
-                        <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                    <ul className="text-gray-300 space-y-2 text-right">
+                      <li className="flex items-start justify-end">
                         <span>Reconquista completa y reconciliación</span>
+                        <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
                       </li>
-                      <li className="flex items-start">
-                        <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <li className="flex items-start justify-end">
                         <span>Restablecimiento de la conexión emocional profunda</span>
+                        <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
                       </li>
-                      <li className="flex items-start">
-                        <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <li className="flex items-start justify-end">
                         <span>Construcción de una relación más fuerte</span>
+                        <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
+                
+                <div className="flex-grow md:w-5/12 md:pr-8 text-right hidden md:block">
+                  <h4 className="text-xl font-bold text-orange-400">DÍAS 15-21</h4>
+                  <p className="text-gray-300">Fase de Reconquista Total</p>
+                </div>
+                
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center z-10 mx-4 md:mx-0">
+                  <span className="text-white font-bold">4</span>
+                </div>
+                
+                <div className="flex-grow md:w-5/12 md:pl-8">
+                  <h4 className="text-xl font-bold text-orange-400 md:hidden">DÍAS 15-21</h4>
+                  <p className="text-gray-300 md:hidden">Fase de Reconquista Total</p>
+                </div>
               </div>
+              
+              <Card className="bg-gray-800 border border-orange-500 mt-4 md:hidden timeline-card">
+                <CardContent className="p-4">
+                  <ul className="text-gray-300 space-y-2">
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Reconquista completa y reconciliación</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Restablecimiento de la conexión emocional profunda</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
+                      <span>Construcción de una relación más fuerte</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
             </div>
           </div>
-        </motion.div>
+          
+          {/* CTA após a timeline */}
+          <div className="mt-8 text-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                onClick={handlePurchase}
+                size="lg"
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                onTouchStart={handleTouchFeedback}
+              >
+                QUIERO EMPEZAR MI PLAN DE 21 DÍAS
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </motion.div>
+          </div>
+        </div>
 
         {/* ¿Este método es para ti? */}
         <motion.div
@@ -621,6 +788,24 @@ export default function ResultPage() {
                     activando gatillos psicológicos que despiertan su deseo natural por ti.
                   </p>
                 </div>
+                
+                {/* CTA após explicação do método */}
+                <div className="mt-6 text-center">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      onClick={handlePurchase}
+                      size="lg"
+                      className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      onTouchStart={handleTouchFeedback}
+                    >
+                      SÍ, ESTO ES PARA MÍ - QUIERO EMPEZAR
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </motion.div>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -678,7 +863,6 @@ export default function ResultPage() {
                           </div>
                         </li>
                       </ul>
-                      
                     </div>
                   </div>
                 </div>
@@ -712,7 +896,6 @@ export default function ResultPage() {
                           </div>
                         </li>
                       </ul>
-                      
                     </div>
                   </div>
                 </div>
@@ -741,7 +924,6 @@ export default function ResultPage() {
                           <p className="text-sm">Cómo lidiar cuando hay otras personas involucradas</p>
                         </div>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -775,22 +957,23 @@ export default function ResultPage() {
                           </div>
                         </li>
                       </ul>
-                      
                     </div>
                   </div>
                 </div>
                 
+                {/* CTA após detalhes dos módulos */}
                 <div className="text-center mt-8">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
-                    className="inline-block"
+                    whileTap={{ scale: 0.98 }}
                   >
                     <Button
-                      onClick={() => scrollToSection('oferta')}
+                      onClick={handlePurchase}
                       size="lg"
-                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      onTouchStart={handleTouchFeedback}
                     >
-                      VER OFERTA COMPLETA
+                      QUIERO ACCESO COMPLETO AHORA
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </motion.div>
@@ -852,9 +1035,27 @@ export default function ResultPage() {
               </tbody>
             </table>
           </div>
+          
+          {/* CTA após comparativo */}
+          <div className="mt-8 text-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                onClick={handlePurchase}
+                size="lg"
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                onTouchStart={handleTouchFeedback}
+              >
+                QUIERO LA MEJOR OPCIÓN - PLAN A
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </motion.div>
+          </div>
         </motion.div>
-
-        {/* Testimonios Categorizados */}
+        
+                {/* Testimonios Categorizados */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
@@ -876,7 +1077,7 @@ export default function ResultPage() {
               </TabsList>
               
               <TabsContent value="traicion">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6 testimonial-grid">
                   <Card className="bg-white shadow-lg">
                     <CardContent className="p-6">
                       <div className="flex items-center mb-4">
@@ -939,7 +1140,7 @@ export default function ResultPage() {
               </TabsContent>
               
               <TabsContent value="desgaste">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6 testimonial-grid">
                   <Card className="bg-white shadow-lg">
                     <CardContent className="p-6">
                       <div className="flex items-center mb-4">
@@ -1003,7 +1204,7 @@ export default function ResultPage() {
               </TabsContent>
               
               <TabsContent value="peleas">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6 testimonial-grid">
                   <Card className="bg-white shadow-lg">
                     <CardContent className="p-6">
                       <div className="flex items-center mb-4">
@@ -1070,7 +1271,7 @@ export default function ResultPage() {
             <div className="mt-8 bg-gray-800 p-6 rounded-lg text-center">
               <div className="text-3xl font-bold text-orange-400 mb-2">87%</div>
               <p className="text-white text-lg mb-4">de los usuarios reportan primeras señales positivas en menos de 14 días</p>
-              <div className="flex justify-center gap-6 text-gray-300">
+              <div className="flex justify-center gap-6 text-gray-300 flex-wrap">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-orange-300">3.847+</div>
                   <div className="text-sm">Relaciones recuperadas</div>
@@ -1085,167 +1286,299 @@ export default function ResultPage() {
                 </div>
               </div>
             </div>
+            
+            {/* CTA após depoimentos */}
+            <div className="mt-8 text-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  onClick={handlePurchase}
+                  size="lg"
+                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  onTouchStart={handleTouchFeedback}
+                >
+                  QUIERO RESULTADOS COMO ESTOS
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
 
-{/* Oferta Principal Consolidada */}
-<motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.9 }}
-  transition={{ delay: 0.2 }}
-  id="oferta"
-  className="mb-12"
->
-  <Card className="bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-2xl border-4 border-yellow-400">
-    <CardContent className="p-8 text-center">
-      <div className="bg-yellow-400 text-black font-bold py-2 px-6 rounded-full inline-block mb-6">
-        🔥 OFERTA LIMITADA - SOLO HOY
-      </div>
-
-      <h3 className="text-3xl md:text-5xl font-bold mb-4">PLAN A - RECUPERACÓN RÁPIDA</h3>
-
-      <p className="text-xl md:text-2xl mb-6 font-semibold">
-        El Sistema Completo que Ya Reconquistó Más de 3.847 Relaciones
-      </p>
-
-      {/* Conteúdo Principal - Consolidado */}
-      <div className="bg-white/20 rounded-lg p-6 mb-6">
-        <h4 className="text-2xl font-bold text-yellow-300 mb-4">LO QUE RECIBES:</h4>
-        
-        <div className="grid md:grid-cols-2 gap-6 text-left mb-6">
-          <div>
-            <h5 className="text-xl font-bold text-yellow-200 mb-3">📚 CONTENIDO PRINCIPAL:</h5>
-            <ul className="space-y-2 text-white">
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>Sistema completo de 21 días paso a paso</span>
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>7 Pilares de la Presencia Irresistible</span>
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>21 Disparadores Emocionales Infalibles</span>
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>Protocolo de 72 horas para casos urgentes</span>
-              </li>
-            </ul>
-          </div>
+        {/* Seção de Bônus Melhorada */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+          transition={{ delay: 0.6 }}
+          id="bonos"
+          className="mb-12"
+        >
+          <h3 className="text-3xl font-bold text-white text-center mb-8">BONOS EXCLUSIVOS DESBLOQUEADOS</h3>
           
-          <div>
-            <h5 className="text-xl font-bold text-yellow-200 mb-3">🎯 SOPORTE Y ACCESO:</h5>
-            <ul className="space-y-2 text-white">
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>Acceso desde móvil, tablet o computadora</span>
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>Actualizaciones gratuitas de por vida</span>
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>Soporte prioritario por 30 días</span>
-              </li>
-              <li className="flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                <span>Comunidad privada de apoyo</span>
-              </li>
-            </ul>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-yellow-900/30 to-orange-900/30 p-6 rounded-xl border-2 border-yellow-500 mb-8">
+              <h4 className="text-2xl font-bold text-yellow-400 text-center mb-6">
+                <Gift className="w-6 h-6 inline-block mr-2" />
+                BONOS ESPECIALES INCLUIDOS EN TU PLAN
+              </h4>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {bonuses.map((bonus, index) => (
+                  <motion.div
+                    key={bonus.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: unlockedBonuses.includes(bonus.id) ? 1 : 0.5,
+                      y: 0,
+                      scale: unlockedBonuses.includes(bonus.id) ? 1 : 0.95
+                    }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`p-4 rounded-lg ${
+                      unlockedBonuses.includes(bonus.id)
+                        ? "bg-gradient-to-br from-green-500/20 to-green-700/20 border-2 border-green-400"
+                        : "bg-gray-800/50 border border-gray-700"
+                    }`}
+                  >
+                    <div className="flex items-start">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center mr-4 flex-shrink-0">
+                        <Gift className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h5 className="font-bold text-white text-lg">
+                          {getPersonalizedContent(bonus.title, userGender)}
+                        </h5>
+                        <div className="flex items-center mt-1">
+                          <span className="text-gray-400 line-through mr-2">$97</span>
+                          <span className="text-green-400 font-bold">GRATIS</span>
+                        </div>
+                        <p className="text-sm text-gray-300 mt-2">
+                          {getPersonalizedContent(bonus.description || "Bono especial para acelerar tu proceso de reconquista", userGender)}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              <div className="mt-6 text-center">
+                <p className="text-yellow-300 font-bold mb-4">
+                  VALOR TOTAL DE LOS BONOS: <span className="text-2xl">$485</span> - HOY INCLUIDOS GRATIS
+                </p>
+                
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Button
+                    onClick={handlePurchase}
+                    size="lg"
+                    className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                    onTouchStart={handleTouchFeedback}
+                  >
+                    QUIERO TODOS LOS BONOS AHORA
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </motion.div>
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.div>
         
-        {/* Bônus Consolidados */}
-        <div className="text-left mb-6">
-          <h5 className="text-xl font-bold text-yellow-200 mb-3">🎁 BONOS EXCLUSIVOS DESBLOQUEADOS ({unlockedBonuses.length} de 5):</h5>
-          <div className="grid md:grid-cols-2 gap-3">
-            {bonuses.map((bonus, index) => (
-              <div 
-                key={bonus.id}
-                className={`p-3 rounded-lg ${
-                  unlockedBonuses.includes(bonus.id)
-                    ? "bg-green-500/30 border border-green-400"
-                    : "bg-gray-700/30 border border-gray-600"
-                }`}
-              >
-                <div className="flex items-start">
-                  {unlockedBonuses.includes(bonus.id) ? (
-                    <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
-                  ) : (
-                    <Gift className="w-5 h-5 text-gray-400 mr-2 mt-1 flex-shrink-0" />
-                  )}
+        {/* Oferta Principal Consolidada */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.9 }}
+          transition={{ delay: 0.2 }}
+          id="oferta"
+          className="mb-12"
+        >
+          <Card className="bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-2xl border-4 border-yellow-400">
+            <CardContent className="p-8 text-center">
+              <div className="bg-yellow-400 text-black font-bold py-2 px-6 rounded-full inline-block mb-6">
+                🔥 OFERTA LIMITADA - SOLO HOY
+              </div>
+
+              <h3 className="text-3xl md:text-5xl font-bold mb-4">PLAN A - RECUPERACÓN RÁPIDA</h3>
+
+              <p className="text-xl md:text-2xl mb-6 font-semibold">
+                El Sistema Completo que Ya Reconquistó Más de 3.847 Relaciones
+              </p>
+
+              {/* Conteúdo Principal - Consolidado */}
+              <div className="bg-white/20 rounded-lg p-6 mb-6">
+                <h4 className="text-2xl font-bold text-yellow-300 mb-4">LO QUE RECIBES:</h4>
+                
+                <div className="grid md:grid-cols-2 gap-6 text-left mb-6">
                   <div>
-                    <span className="font-bold text-white">
-                      {getPersonalizedContent(bonus.title, userGender)}
-                    </span>
-                    <div className="text-sm text-yellow-200 mt-1">Valor: $ {bonus.value}</div>
+                    <h5 className="text-xl font-bold text-yellow-200 mb-3">📚 CONTENIDO PRINCIPAL:</h5>
+                    <ul className="space-y-2 text-white">
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Sistema completo de 21 días paso a paso</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>7 Pilares de la Presencia Irresistible</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>21 Disparadores Emocionales Infalibles</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Protocolo de 72 horas para casos urgentes</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h5 className="text-xl font-bold text-yellow-200 mb-3">🎯 SOPORTE Y ACCESO:</h5>
+                    <ul className="space-y-2 text-white">
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Acceso desde móvil, tablet o computadora</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Actualizaciones gratuitas de por vida</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Soporte prioritario por 30 días</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Comunidad privada de apoyo</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                {/* Bônus Consolidados - Resumo */}
+                <div className="text-left mb-6">
+                  <h5 className="text-xl font-bold text-yellow-200 mb-3">🎁 BONOS EXCLUSIVOS DESBLOQUEADOS ({unlockedBonuses.length} de 5):</h5>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {bonuses.map((bonus, index) => (
+                      <div 
+                        key={bonus.id}
+                        className={`p-3 rounded-lg ${
+                          unlockedBonuses.includes(bonus.id)
+                            ? "bg-green-500/30 border border-green-400"
+                            : "bg-gray-700/30 border border-gray-600"
+                        }`}
+                      >
+                        <div className="flex items-start">
+                          {unlockedBonuses.includes(bonus.id) ? (
+                            <Check className="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" />
+                          ) : (
+                            <Gift className="w-5 h-5 text-gray-400 mr-2 mt-1 flex-shrink-0" />
+                          )}
+                          <div>
+                            <span className="font-bold text-white">
+                              {getPersonalizedContent(bonus.title, userGender)}
+                            </span>
+                            <div className="text-sm text-yellow-200 mt-1">Valor: $ {bonus.value}</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
-      {/* Preço Consolidado */}
-      <div className="mb-6">
-        <div className="text-red-300 text-xl font-bold mb-2">
-          <span className="line-through">VALOR TOTAL: $ 197</span>
-        </div>
-        <div className="text-6xl font-bold text-yellow-300 mb-2">$ 9</div>
-        
-        <div className="bg-yellow-500 text-black font-bold py-2 px-6 rounded-full inline-block mt-4">
-          💰 ¡AHORRO DE $ 188 HOY!
-        </div>
-      </div>
+              {/* Preço Consolidado */}
+              <div className="mb-6">
+                <div className="text-red-300 text-xl font-bold mb-2">
+                  <span className="line-through">VALOR TOTAL: $ 197</span>
+                </div>
+                <div className="text-6xl font-bold text-yellow-300 mb-2">$ 9</div>
+                
+                <div className="bg-yellow-500 text-black font-bold py-2 px-6 rounded-full inline-block mt-4">
+                  💰 ¡AHORRO DE $ 188 HOY!
+                </div>
+                
+                {/* Contador regressivo */}
+                <div className="mt-4 bg-black/30 p-3 rounded-lg inline-block">
+                  <p className="text-white font-bold mb-1">ESTA OFERTA EXPIRA EN:</p>
+                  <div className="flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-red-400 mr-2" />
+                    <CountdownTimer minutes={15} seconds={0} />
+                  </div>
+                </div>
+              </div>
 
-      {/* CTA Unificado */}
-      <motion.div
-        animate={{
-          scale: [1, 1.05, 1],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "reverse",
-        }}
-      >
-        <Button
-          onClick={handlePurchase}
-          size="lg"
-          className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-4 px-6 rounded-full text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4 w-full sm:w-auto"
-        >
-          {getPersonalizedCTA()}
-          <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
-      </motion.div>
-      
-      <div className="flex justify-center gap-4 text-sm text-white">
-        <div className="flex items-center">
-          <Check className="w-4 h-4 text-green-400 mr-1" />
-          <span>Acceso inmediato</span>
-        </div>
-        <div className="flex items-center">
-          <Check className="w-4 h-4 text-green-400 mr-1" />
-          <span>Pago en cuotas disponible</span>
-        </div>
-        <div className="flex items-center">
-          <Check className="w-4 h-4 text-green-400 mr-1" />
-          <span>Garantía de 30 días</span>
-        </div>
-      </div>
-      
-      {recentBuyers > 0 && (
-        <div className="mt-4 bg-red-500 text-white py-2 px-4 rounded-full inline-block">
-          🔥 ¡{recentBuyers} personas compraron en las últimas 2 horas!
-        </div>
-      )}
-    </CardContent>
-  </Card>
-</motion.div>
+              {/* CTA Unificado */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  repeatType: "reverse",
+                }}
+              >
+                <Button
+                  onClick={handlePurchase}
+                  size="lg"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-4 px-6 rounded-full text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4 w-full sm:w-auto"
+                  onTouchStart={handleTouchFeedback}
+                >
+                  {getPersonalizedCTA()}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </motion.div>
+              
+              <div className="flex justify-center gap-4 text-sm text-white flex-wrap">
+                <div className="flex items-center">
+                  <Check className="w-4 h-4 text-green-400 mr-1" />
+                  <span>Acceso inmediato</span>
+                </div>
+                <div className="flex items-center">
+                  <Check className="w-4 h-4 text-green-400 mr-1" />
+                  <span>Pago en cuotas disponible</span>
+                </div>
+                <div className="flex items-center">
+                  <Check className="w-4 h-4 text-green-400 mr-1" />
+                  <span>Garantía de 30 días</span>
+                </div>
+              </div>
+              
+              {recentBuyers > 0 && (
+                <div className="mt-4 bg-red-500 text-white py-2 px-4 rounded-full inline-block">
+                  🔥 ¡{recentBuyers} personas compraron en las últimas 2 horas!
+                </div>
+              )}
+              
+              {/* Prova social dinâmica na oferta */}
+              <div className="mt-6 overflow-x-auto">
+                <div className="flex gap-2 pb-2 justify-center flex-wrap">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="flex-shrink-0 bg-black/30 p-2 rounded-lg">
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 rounded-full bg-orange-200 overflow-hidden mr-2">
+                          <img 
+                            src={`https://optimalhealthscout.shop/wp-content/uploads/2025/05/0${i+1}.png`}
+                            alt="Usuario reciente" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="text-xs text-white">
+                          <div className="font-bold">
+                            {["María", "Carlos", "Ana", "Roberto", "Lucía"][i]} {["L.", "M.", "P.", "S.", "T."][i]}
+                          </div>
+                          <div className="text-green-400">Compró hace {i+1} min</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Garantías */}
         <motion.div
@@ -1287,6 +1620,24 @@ export default function ResultPage() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+          
+          {/* CTA após garantias */}
+          <div className="mt-8 text-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                onClick={handlePurchase}
+                size="lg"
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                onTouchStart={handleTouchFeedback}
+              >
+                ACTIVAR MI PLAN CON GARANTÍA TOTAL
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </motion.div>
           </div>
         </motion.div>
 
@@ -1365,9 +1716,27 @@ export default function ResultPage() {
               </CardContent>
             </Card>
           </div>
+          
+          {/* CTA após perguntas frequentes */}
+          <div className="mt-8 text-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                onClick={handlePurchase}
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                onTouchStart={handleTouchFeedback}
+              >
+                QUIERO EMPEZAR AHORA
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </motion.div>
+          </div>
         </motion.div>
-
-        {/* Testimonios - Reemplazado por una sola imagen flotante */}
+        
+        {/* Testimonios - Video */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
@@ -1379,29 +1748,48 @@ export default function ResultPage() {
           <div className="max-w-4xl mx-auto">
             <Card className="bg-gray-50 border-2 border-gray-300 overflow-hidden">
               <CardContent className="p-6 text-center">
-<motion.div
-  animate={{
-    y: [0, -8, 0],
-    rotate: [0, 1, -1, 0],
-  }}
-  transition={{
-    duration: 5,
-    repeat: Number.POSITIVE_INFINITY,
-    ease: "easeInOut",
-  }}
-  className="w-full rounded-lg overflow-hidden shadow-lg"
->
-  <video 
-    src="https://optimalhealthscout.shop/wp-content/uploads/2025/06/prova-pronta-espanhol-joselino.mp4" 
-    controls
-    className="w-full h-auto object-cover"
-  >
-    Tu navegador no soporta el elemento de video.
-  </video>
-</motion.div>
+                <motion.div
+                  animate={{
+                    y: [0, -8, 0],
+                    rotate: [0, 1, -1, 0],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                  }}
+                  className="w-full rounded-lg overflow-hidden shadow-lg"
+                >
+                  <video 
+                    src="https://optimalhealthscout.shop/wp-content/uploads/2025/06/prova-pronta-espanhol-joselino.mp4" 
+                    controls
+                    poster="https://optimalhealthscout.shop/wp-content/uploads/2025/06/thumbnail-video.jpg"
+                    className="w-full h-auto object-cover"
+                  >
+                    Tu navegador no soporta el elemento de video.
+                  </video>
+                </motion.div>
                 <p className="text-gray-600 font-medium mt-4">
                   ¡Mira lo que nuestros clientes están diciendo sobre los resultados!
                 </p>
+                
+                {/* CTA após vídeo */}
+                <div className="mt-6">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      onClick={handlePurchase}
+                      size="lg"
+                      className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      onTouchStart={handleTouchFeedback}
+                    >
+                      QUIERO RESULTADOS COMO ESTOS
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </motion.div>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -1414,17 +1802,113 @@ export default function ResultPage() {
           transition={{ delay: 1.6 }}
           className="mb-12 text-center"
         >
-          <Button
-            onClick={handlePurchase}
-            size="lg"
-            className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
-          >
-            COMPRAR AHORA
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-          <p className="text-red-400 text-sm mt-2 font-semibold">⚠️ ¡Esta oferta expira pronto! </p>
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-orange-600 to-red-600 p-8 rounded-2xl border-4 border-yellow-400 shadow-2xl">
+            <h3 className="text-3xl font-bold text-white mb-4">¿LISTO PARA RECUPERAR A {getPersonalizedPronoun().toUpperCase()}?</h3>
+            <p className="text-xl text-white mb-6">
+              No pierdas más tiempo con estrategias que no funcionan. El Plan A ya ha ayudado a más de 3.847 personas a reconquistar sus relaciones.
+            </p>
+            
+            <div className="bg-black/30 p-4 rounded-lg mb-6">
+              <div className="flex items-center justify-center mb-3">
+                <Clock className="w-6 h-6 text-yellow-300 mr-2" />
+                <p className="text-yellow-300 font-bold">OFERTA ESPECIAL EXPIRA EN:</p>
+              </div>
+              <div className="text-2xl font-bold text-white mb-3">
+                <CountdownTimer minutes={15} seconds={0} />
+              </div>
+              <p className="text-white text-sm">
+                Después de este tiempo, el precio volverá a $197 y los bonos ya no estarán disponibles.
+              </p>
+            </div>
+            
+            <motion.div
+              animate={{
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatType: "reverse",
+              }}
+              className="mb-4"
+            >
+              <Button
+                onClick={handlePurchase}
+                size="lg"
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-extrabold py-6 px-8 rounded-full text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                onTouchStart={handleTouchFeedback}
+              >
+                {getPersonalizedCTA()}
+                <ArrowRight className="w-6 h-6 ml-2" />
+              </Button>
+            </motion.div>
+            
+            <p className="text-yellow-300 text-sm">
+              Acceso inmediato • Garantía de 30 días • Soporte prioritario • Bonos exclusivos
+            </p>
+          </div>
         </motion.div>
       </div>
+      
+      {/* CTA Fixo na parte inferior da tela */}
+      <div className="sticky bottom-0 left-0 right-0 bg-gradient-to-r from-black/90 to-gray-900/90 p-4 backdrop-blur-md z-50 border-t-2 border-orange-500">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-left hidden sm:block">
+            <p className="text-orange-400 font-bold">Tu Resultado del Quiz:</p>
+            <p className="text-white text-xl font-bold">97% de Probabilidad de Reconquista</p>
+          </div>
+          
+          <motion.div
+            animate={{
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
+            }}
+            className="w-full sm:w-auto"
+          >
+            <Button
+              onClick={handlePurchase}
+              size="lg"
+              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-extrabold py-4 px-6 rounded-full text-lg shadow-xl border-2 border-white/20 w-full sm:w-auto"
+              onTouchStart={handleTouchFeedback}
+            >
+              ACTIVAR MI PLAN DE RECONQUISTA AHORA
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </motion.div>
+          
+          <div className="text-center sm:text-right text-white text-sm">
+            <div className="flex items-center justify-center sm:justify-end">
+              <Clock className="w-4 h-4 mr-1 text-red-400" />
+              <CountdownTimer minutes={15} seconds={0} />
+            </div>
+            <p className="text-orange-300">{recentBuyers} personas activaron hoy</p>
+          </div>
+        </div>
+      </div>
+      
+      {/* Estilos CSS específicos para mobile */}
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .timeline-card {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100% !important;
+          }
+          
+          .product-image {
+            max-height: 200px;
+            object-fit: contain;
+          }
+          
+          .testimonial-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
