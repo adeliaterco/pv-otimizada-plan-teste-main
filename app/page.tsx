@@ -5,84 +5,202 @@ import { motion } from "framer-motion"
 import { ArrowRight, Clock, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useRouter } from "next/router"
 
-// 1. Adicione esta função para enviar eventos ao Google Analytics
+// Função robusta para enviar eventos ao Google Analytics
 function enviarEvento(nombre_evento, propriedades = {}) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', nombre_evento, propriedades);
-    console.log('Evento enviado:', nombre_evento, propriedades);
+  try {
+    if (typeof window !== 'undefined') {
+      // Verificar se GA está carregado
+      if (window.gtag) {
+        window.gtag('event', nombre_evento, propriedades);
+        console.log('Evento enviado:', nombre_evento, propriedades);
+      } else {
+        // Fila de eventos para enviar quando GA estiver disponível
+        window._gtagEvents = window._gtagEvents || [];
+        window._gtagEvents.push({event: nombre_evento, props: propriedades});
+        console.log('Evento enfileirado:', nombre_evento);
+      }
+    }
+  } catch (error) {
+    console.error('Erro ao enviar evento:', error);
   }
 }
 
 export default function HomePage() {
+  const router = useRouter()
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isOnline, setIsOnline] = useState(true)
   const [urgencyCount, setUrgencyCount] = useState(127)
-
+  
+  // Efeito para gerenciar carregamento e eventos
   useEffect(() => {
-    setIsLoaded(true)
-
-    // Contador de urgência
+    // Verificar conexão de rede
+    setIsOnline(navigator.onLine)
+    const handleOnline = () => setIsOnline(true)
+    const handleOffline = () => setIsOnline(false)
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+    
+    // Gerenciar carregamento da página
+    const handleLoad = () => {
+      setIsLoading(false)
+      setIsLoaded(true)
+      
+      // Registrar métricas de performance
+      if ('performance' in window && 'getEntriesByType' in window.performance) {
+        const perfData = window.performance.getEntriesByType('navigation')[0]
+        if (perfData) {
+          enviarEvento('metricas_performance', {
+            domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+            loadTime: perfData.loadEventEnd - perfData.fetchStart,
+            deviceType: window.innerWidth <= 768 ? 'mobile' : 'desktop'
+          })
+        }
+      }
+    }
+    
+    // Configurar handlers de carregamento
+    if (document.readyState === 'complete') {
+      handleLoad()
+    } else {
+      window.addEventListener('load', handleLoad)
+    }
+    
+    // Fallback se o evento onload não disparar
+    const timeout = setTimeout(() => {
+      setIsLoading(false)
+      setIsLoaded(true)
+    }, 3000)
+    
+    // Contador de urgência com intervalo otimizado
     const interval = setInterval(() => {
       setUrgencyCount((prev) => prev + Math.floor(Math.random() * 3))
     }, 45000)
-
-    // 2. Adicione este código para registrar visualização da página inicial
-    enviarEvento('visualizou_pagina_inicial');
-
-    return () => clearInterval(interval)
+    
+    // Registrar visualização da página inicial
+    enviarEvento('visualizou_pagina_inicial', {
+      device_type: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'mobile' : 'desktop'
+    })
+    
+    // Verificar se há eventos enfileirados para enviar
+    if (typeof window !== 'undefined' && window.gtag && window._gtagEvents?.length) {
+      window._gtagEvents.forEach(item => {
+        window.gtag('event', item.event, item.props)
+      })
+      window._gtagEvents = []
+    }
+    
+    // Monitorar erros de carregamento
+    const handleError = (error) => {
+      enviarEvento('erro_pagina_inicial', {
+        error_message: error.message,
+        error_stack: error.stack
+      })
+    }
+    window.addEventListener('error', handleError)
+    
+    // Cleanup
+    return () => {
+      clearInterval(interval)
+      clearTimeout(timeout)
+      window.removeEventListener('load', handleLoad)
+      window.removeEventListener('error', handleError)
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
   }, [])
-
-  // 3. Modifique esta função para registrar o início do quiz e preservar UTMs
+  
+  // Função para preservar UTMs e iniciar o quiz
   const handleStart = () => {
+    // Desabilitar múltiplos cliques
+    if (isLoading) return
+    setIsLoading(true)
+    
     // Registra evento de início do quiz
-    enviarEvento('iniciou_quiz');
+    enviarEvento('iniciou_quiz', {
+      device_type: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'mobile' : 'desktop'
+    })
     
     // Reset quiz data
     localStorage.removeItem("quizData")
     localStorage.removeItem("unlockedBonuses")
     localStorage.removeItem("totalValue")
     
-    // Preservar UTMs no redirecionamento
-    const currentUrl = new URL(window.location.href);
-    const utmParams = new URLSearchParams();
-    
-    // Coletar todos os parâmetros UTM da URL atual
-    for (const [key, value] of currentUrl.searchParams.entries()) {
-      if (key.startsWith('utm_')) {
-        utmParams.append(key, value);
-      }
-    }
-    
-    // Se não houver UTMs na URL, verificar se estão armazenados no localStorage
-    if (utmParams.toString() === '' && localStorage.getItem('utmParams')) {
-      const storedUtms = JSON.parse(localStorage.getItem('utmParams'));
-      for (const key in storedUtms) {
+    try {
+      // Preservar UTMs no redirecionamento - mantendo lógica original para garantir compatibilidade
+      const currentUrl = new URL(window.location.href)
+      const utmParams = new URLSearchParams()
+      
+      // Coletar todos os parâmetros UTM da URL atual
+      for (const [key, value] of currentUrl.searchParams.entries()) {
         if (key.startsWith('utm_')) {
-          utmParams.append(key, storedUtms[key]);
+          utmParams.append(key, value)
         }
       }
-    }
-    
-    // Armazenar UTMs no localStorage para uso em páginas futuras
-    if (utmParams.toString() !== '') {
-      const utmObject = {};
-      for (const [key, value] of utmParams.entries()) {
-        utmObject[key] = value;
+      
+      // Se não houver UTMs na URL, verificar se estão armazenados no localStorage
+      if (utmParams.toString() === '' && localStorage.getItem('utmParams')) {
+        try {
+          const storedUtms = JSON.parse(localStorage.getItem('utmParams'))
+          for (const key in storedUtms) {
+            if (key.startsWith('utm_')) {
+              utmParams.append(key, storedUtms[key])
+            }
+          }
+        } catch (e) {
+          console.error('Erro ao processar UTMs armazenados:', e)
+        }
       }
-      localStorage.setItem('utmParams', JSON.stringify(utmObject));
+      
+      // Armazenar UTMs no localStorage para uso em páginas futuras
+      if (utmParams.toString() !== '') {
+        const utmObject = {}
+        for (const [key, value] of utmParams.entries()) {
+          utmObject[key] = value
+        }
+        localStorage.setItem('utmParams', JSON.stringify(utmObject))
+      }
+      
+      // Construir a URL de destino com os parâmetros UTM
+      const targetUrl = `/quiz/1${utmParams.toString() ? '?' + utmParams.toString() : ''}`
+      
+      // Usar window.location para manter compatibilidade com a implementação original
+      // Isso é importante para garantir que os UTMs sejam preservados exatamente como antes
+      window.location.href = targetUrl
+      
+      // Nota: Não estamos usando router.push aqui para manter a compatibilidade exata
+      // com o comportamento original de preservação de UTMs
+    } catch (error) {
+      console.error('Erro ao processar redirecionamento:', error)
+      setIsLoading(false)
+      
+      // Em caso de erro, tentar redirecionamento simples
+      window.location.href = '/quiz/1'
     }
-    
-    // Construir a URL de destino com os parâmetros UTM
-    const targetUrl = `/quiz/1${utmParams.toString() ? '?' + utmParams.toString() : ''}`;
-    window.location.href = targetUrl;
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 flex items-center justify-center p-4">
+      {/* Indicador de carregamento */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
+        </div>
+      )}
+      
+      {/* Alerta de offline */}
+      {!isOnline && (
+        <div className="fixed top-0 left-0 right-0 bg-red-100 text-red-800 p-3 text-center font-medium z-50">
+          Você parece estar offline. Verifique sua conexão para continuar.
+        </div>
+      )}
+      
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.8 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className="max-w-3xl w-full text-center"
       >
         <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-lg border-orange-500/30 shadow-2xl border-2">
@@ -90,37 +208,33 @@ export default function HomePage() {
             <motion.div
               initial={{ y: -20 }}
               animate={{ y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
               className="mb-8"
             >
-              {/* Substituindo o coração por foto arredondada com efeitos */}
+              {/* Imagem otimizada com efeitos reduzidos */}
               <motion.div
                 animate={{
-                  scale: [1, 1.05, 1],
+                  scale: [1, 1.03, 1], // Reduzido de 1.05 para 1.03
                 }}
                 transition={{
                   duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
+                  repeat: 3, // Limitado a 3 repetições em vez de infinito
                   repeatType: "reverse",
                 }}
                 className="relative w-28 h-28 mx-auto mb-6"
               >
-                {/* Efeitos de luz */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/30 to-red-600/30 blur-xl animate-pulse"></div>
-                <div
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/20 to-orange-500/20 blur-md animate-pulse"
-                  style={{ animationDelay: "0.5s" }}
-                ></div>
-
-                {/* Imagem arredondada */}
+                {/* Efeitos de luz simplificados */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
+                
+                {/* Imagem arredondada otimizada */}
                 <motion.div
                   animate={{
-                    y: [0, -5, 0],
-                    rotate: [0, 2, -2, 0],
+                    y: [0, -3, 0], // Reduzido de -5 para -3
+                    rotate: [0, 1, -1, 0], // Reduzido de 2 para 1
                   }}
                   transition={{
-                    duration: 4,
-                    repeat: Number.POSITIVE_INFINITY,
+                    duration: 3, // Reduzido de 4 para 3
+                    repeat: 2, // Limitado a 2 repetições
                     ease: "easeInOut",
                   }}
                   className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10"
@@ -129,6 +243,9 @@ export default function HomePage() {
                     src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
                     alt="Logo Plano A - Reconquista"
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    width="112"
+                    height="112"
                   />
                 </motion.div>
               </motion.div>
@@ -140,7 +257,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
               className="mb-10"
             >
               <h3 className="text-2xl md:text-3xl font-bold text-red-400 mb-6 leading-tight">
@@ -186,26 +303,36 @@ export default function HomePage() {
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
             >
               <motion.div
                 animate={{
-                  scale: [1, 1.05, 1],
+                  scale: [1, 1.03, 1], // Reduzido de 1.05 para 1.03
                 }}
                 transition={{
                   duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
+                  repeat: 2, // Limitado a 2 repetições
                   repeatType: "reverse",
                 }}
               >
-                {/* Botão com texto reduzido */}
+                {/* Botão com feedback visual de carregamento */}
                 <Button
                   onClick={handleStart}
+                  disabled={isLoading || !isOnline}
                   size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4 w-full sm:w-auto"
+                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  HACER PRUEBA GRATIS
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  {isLoading ? (
+                    <>
+                      <span className="animate-pulse">PROCESANDO...</span>
+                      <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    </>
+                  ) : (
+                    <>
+                      HACER PRUEBA GRATIS
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </>
+                  )}
                 </Button>
               </motion.div>
 
