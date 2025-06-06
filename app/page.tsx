@@ -5,7 +5,6 @@ import { motion } from "framer-motion"
 import { ArrowRight, Clock, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { useRouter } from "next/router"
 
 // Função robusta para enviar eventos ao Google Analytics
 function enviarEvento(nombre_evento, propriedades = {}) {
@@ -28,7 +27,6 @@ function enviarEvento(nombre_evento, propriedades = {}) {
 }
 
 export default function HomePage() {
-  const router = useRouter()
   const [isLoaded, setIsLoaded] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isOnline, setIsOnline] = useState(true)
@@ -37,78 +35,80 @@ export default function HomePage() {
   // Efeito para gerenciar carregamento e eventos
   useEffect(() => {
     // Verificar conexão de rede
-    setIsOnline(navigator.onLine)
-    const handleOnline = () => setIsOnline(true)
-    const handleOffline = () => setIsOnline(false)
-    window.addEventListener('online', handleOnline)
-    window.addEventListener('offline', handleOffline)
-    
-    // Gerenciar carregamento da página
-    const handleLoad = () => {
-      setIsLoading(false)
-      setIsLoaded(true)
+    if (typeof window !== 'undefined') {
+      setIsOnline(navigator.onLine)
+      const handleOnline = () => setIsOnline(true)
+      const handleOffline = () => setIsOnline(false)
+      window.addEventListener('online', handleOnline)
+      window.addEventListener('offline', handleOffline)
       
-      // Registrar métricas de performance
-      if ('performance' in window && 'getEntriesByType' in window.performance) {
-        const perfData = window.performance.getEntriesByType('navigation')[0]
-        if (perfData) {
-          enviarEvento('metricas_performance', {
-            domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
-            loadTime: perfData.loadEventEnd - perfData.fetchStart,
-            deviceType: window.innerWidth <= 768 ? 'mobile' : 'desktop'
-          })
+      // Gerenciar carregamento da página
+      const handleLoad = () => {
+        setIsLoading(false)
+        setIsLoaded(true)
+        
+        // Registrar métricas de performance
+        if ('performance' in window && 'getEntriesByType' in window.performance) {
+          const perfData = window.performance.getEntriesByType('navigation')[0]
+          if (perfData) {
+            enviarEvento('metricas_performance', {
+              domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+              loadTime: perfData.loadEventEnd - perfData.fetchStart,
+              deviceType: window.innerWidth <= 768 ? 'mobile' : 'desktop'
+            })
+          }
         }
       }
-    }
-    
-    // Configurar handlers de carregamento
-    if (document.readyState === 'complete') {
-      handleLoad()
-    } else {
-      window.addEventListener('load', handleLoad)
-    }
-    
-    // Fallback se o evento onload não disparar
-    const timeout = setTimeout(() => {
-      setIsLoading(false)
-      setIsLoaded(true)
-    }, 3000)
-    
-    // Contador de urgência com intervalo otimizado
-    const interval = setInterval(() => {
-      setUrgencyCount((prev) => prev + Math.floor(Math.random() * 3))
-    }, 45000)
-    
-    // Registrar visualização da página inicial
-    enviarEvento('visualizou_pagina_inicial', {
-      device_type: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'mobile' : 'desktop'
-    })
-    
-    // Verificar se há eventos enfileirados para enviar
-    if (typeof window !== 'undefined' && window.gtag && window._gtagEvents?.length) {
-      window._gtagEvents.forEach(item => {
-        window.gtag('event', item.event, item.props)
+      
+      // Configurar handlers de carregamento
+      if (document.readyState === 'complete') {
+        handleLoad()
+      } else {
+        window.addEventListener('load', handleLoad)
+      }
+      
+      // Fallback se o evento onload não disparar
+      const timeout = setTimeout(() => {
+        setIsLoading(false)
+        setIsLoaded(true)
+      }, 3000)
+      
+      // Contador de urgência com intervalo otimizado
+      const interval = setInterval(() => {
+        setUrgencyCount((prev) => prev + Math.floor(Math.random() * 3))
+      }, 45000)
+      
+      // Registrar visualização da página inicial
+      enviarEvento('visualizou_pagina_inicial', {
+        device_type: window.innerWidth <= 768 ? 'mobile' : 'desktop'
       })
-      window._gtagEvents = []
-    }
-    
-    // Monitorar erros de carregamento
-    const handleError = (error) => {
-      enviarEvento('erro_pagina_inicial', {
-        error_message: error.message,
-        error_stack: error.stack
-      })
-    }
-    window.addEventListener('error', handleError)
-    
-    // Cleanup
-    return () => {
-      clearInterval(interval)
-      clearTimeout(timeout)
-      window.removeEventListener('load', handleLoad)
-      window.removeEventListener('error', handleError)
-      window.removeEventListener('online', handleOnline)
-      window.removeEventListener('offline', handleOffline)
+      
+      // Verificar se há eventos enfileirados para enviar
+      if (window.gtag && window._gtagEvents?.length) {
+        window._gtagEvents.forEach(item => {
+          window.gtag('event', item.event, item.props)
+        })
+        window._gtagEvents = []
+      }
+      
+      // Monitorar erros de carregamento
+      const handleError = (error) => {
+        enviarEvento('erro_pagina_inicial', {
+          error_message: error.message,
+          error_stack: error.stack
+        })
+      }
+      window.addEventListener('error', handleError)
+      
+      // Cleanup
+      return () => {
+        clearInterval(interval)
+        clearTimeout(timeout)
+        window.removeEventListener('load', handleLoad)
+        window.removeEventListener('error', handleError)
+        window.removeEventListener('online', handleOnline)
+        window.removeEventListener('offline', handleOffline)
+      }
     }
   }, [])
   
@@ -123,61 +123,61 @@ export default function HomePage() {
       device_type: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'mobile' : 'desktop'
     })
     
-    // Reset quiz data
-    localStorage.removeItem("quizData")
-    localStorage.removeItem("unlockedBonuses")
-    localStorage.removeItem("totalValue")
-    
     try {
-      // Preservar UTMs no redirecionamento - mantendo lógica original para garantir compatibilidade
-      const currentUrl = new URL(window.location.href)
-      const utmParams = new URLSearchParams()
-      
-      // Coletar todos os parâmetros UTM da URL atual
-      for (const [key, value] of currentUrl.searchParams.entries()) {
-        if (key.startsWith('utm_')) {
-          utmParams.append(key, value)
-        }
-      }
-      
-      // Se não houver UTMs na URL, verificar se estão armazenados no localStorage
-      if (utmParams.toString() === '' && localStorage.getItem('utmParams')) {
-        try {
-          const storedUtms = JSON.parse(localStorage.getItem('utmParams'))
-          for (const key in storedUtms) {
-            if (key.startsWith('utm_')) {
-              utmParams.append(key, storedUtms[key])
-            }
+      if (typeof window !== 'undefined') {
+        // Reset quiz data
+        localStorage.removeItem("quizData")
+        localStorage.removeItem("unlockedBonuses")
+        localStorage.removeItem("totalValue")
+        
+        // Preservar UTMs no redirecionamento - mantendo lógica original para garantir compatibilidade
+        const currentUrl = new URL(window.location.href)
+        const utmParams = new URLSearchParams()
+        
+        // Coletar todos os parâmetros UTM da URL atual
+        for (const [key, value] of currentUrl.searchParams.entries()) {
+          if (key.startsWith('utm_')) {
+            utmParams.append(key, value)
           }
-        } catch (e) {
-          console.error('Erro ao processar UTMs armazenados:', e)
         }
-      }
-      
-      // Armazenar UTMs no localStorage para uso em páginas futuras
-      if (utmParams.toString() !== '') {
-        const utmObject = {}
-        for (const [key, value] of utmParams.entries()) {
-          utmObject[key] = value
+        
+        // Se não houver UTMs na URL, verificar se estão armazenados no localStorage
+        if (utmParams.toString() === '' && localStorage.getItem('utmParams')) {
+          try {
+            const storedUtms = JSON.parse(localStorage.getItem('utmParams'))
+            for (const key in storedUtms) {
+              if (key.startsWith('utm_')) {
+                utmParams.append(key, storedUtms[key])
+              }
+            }
+          } catch (e) {
+            console.error('Erro ao processar UTMs armazenados:', e)
+          }
         }
-        localStorage.setItem('utmParams', JSON.stringify(utmObject))
+        
+        // Armazenar UTMs no localStorage para uso em páginas futuras
+        if (utmParams.toString() !== '') {
+          const utmObject = {}
+          for (const [key, value] of utmParams.entries()) {
+            utmObject[key] = value
+          }
+          localStorage.setItem('utmParams', JSON.stringify(utmObject))
+        }
+        
+        // Construir a URL de destino com os parâmetros UTM
+        const targetUrl = `/quiz/1${utmParams.toString() ? '?' + utmParams.toString() : ''}`
+        
+        // Usar window.location para manter compatibilidade com a implementação original
+        window.location.href = targetUrl
       }
-      
-      // Construir a URL de destino com os parâmetros UTM
-      const targetUrl = `/quiz/1${utmParams.toString() ? '?' + utmParams.toString() : ''}`
-      
-      // Usar window.location para manter compatibilidade com a implementação original
-      // Isso é importante para garantir que os UTMs sejam preservados exatamente como antes
-      window.location.href = targetUrl
-      
-      // Nota: Não estamos usando router.push aqui para manter a compatibilidade exata
-      // com o comportamento original de preservação de UTMs
     } catch (error) {
       console.error('Erro ao processar redirecionamento:', error)
       setIsLoading(false)
       
       // Em caso de erro, tentar redirecionamento simples
-      window.location.href = '/quiz/1'
+      if (typeof window !== 'undefined') {
+        window.location.href = '/quiz/1'
+      }
     }
   }
 
