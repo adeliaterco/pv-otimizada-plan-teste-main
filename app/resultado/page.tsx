@@ -100,7 +100,7 @@ export default function ResultPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4" ref={contentRef}>
-      {/* Navegação fixa para mobile */}
+      {/* Navegação fixa para mobile - Simplificada e discreta */}
       <div className="md:hidden sticky top-0 z-50 bg-black/90 backdrop-blur-md p-2 border-b border-orange-500">
         <div className="flex justify-between items-center">
           <h2 className="text-orange-400 font-bold text-sm">Tu Plan de Reconquista</h2>
@@ -114,12 +114,12 @@ export default function ResultPage() {
               Resultado
             </Button>
             <Button 
-              onClick={handlePurchase}
+              onClick={() => scrollToSection('modulos')}
+              variant="ghost" 
               size="sm"
-              className="bg-yellow-500 text-black font-bold text-xs"
-              onTouchStart={handleTouchFeedback}
+              className="text-white text-xs"
             >
-              Activar
+              Módulos
             </Button>
           </div>
         </div>
@@ -199,20 +199,7 @@ export default function ResultPage() {
                     </ul>
                   </div>
                   
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button
-                      onClick={handlePurchase}
-                      size="lg"
-                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full"
-                      onTouchStart={handleTouchFeedback}
-                    >
-                      ACTIVAR MI PLAN PERSONALIZADO AHORA
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </Button>
-                  </motion.div>
+                  {/* Sem CTA aqui - Primeiro qualificamos o usuário */}
                 </div>
               </div>
               
@@ -237,7 +224,7 @@ export default function ResultPage() {
             </CardContent>
           </Card>
         </motion.div>
-        
+
         {/* Comparativo Antes y Después */}
         <div id="historia" className="max-w-4xl mx-auto mb-12">
           <Card className="bg-gray-50 border-2 border-gray-300 overflow-hidden">
@@ -399,7 +386,7 @@ export default function ResultPage() {
                 </div>
               </div>
               
-              {/* CTA após a apresentação dos produtos */}
+              {/* PRIMEIRO CTA ESTRATÉGICO - Após mostrar a transformação e o produto */}
               <div className="mt-8 text-center">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -459,6 +446,7 @@ export default function ResultPage() {
             </CardContent>
           </Card>
         </div>
+        
         {/* Timeline de Resultados */}
         <div className="max-w-4xl mx-auto mb-12">
           <h3 className="text-3xl font-bold text-white text-center mb-8">QUÉ ESPERAR EN LOS PRÓXIMOS 21 DÍAS</h3>
@@ -533,6 +521,7 @@ export default function ResultPage() {
                         <span>Primeras señales de curiosidad de su parte</span>
                         <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
                       </li>
+
                       <li className="flex items-start justify-end">
                         <span>Implementar la técnica del "Gatillo de Nostalgia"</span>
                         <Check className="w-4 h-4 text-green-400 ml-2 mt-1" />
@@ -695,7 +684,7 @@ export default function ResultPage() {
             </div>
           </div>
           
-          {/* CTA após a timeline */}
+          {/* CTA após timeline - Segundo CTA estratégico */}
           <div className="mt-8 text-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -789,7 +778,7 @@ export default function ResultPage() {
                   </p>
                 </div>
                 
-                {/* CTA após explicação do método */}
+                {/* CTA após explicação do método - Terceiro CTA estratégico */}
                 <div className="mt-6 text-center">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
@@ -961,7 +950,7 @@ export default function ResultPage() {
                   </div>
                 </div>
                 
-                {/* CTA após detalhes dos módulos */}
+                {/* CTA após detalhes dos módulos - Quarto CTA estratégico */}
                 <div className="text-center mt-8">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
@@ -1036,26 +1025,10 @@ export default function ResultPage() {
             </table>
           </div>
           
-          {/* CTA após comparativo */}
-          <div className="mt-8 text-center">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Button
-                onClick={handlePurchase}
-                size="lg"
-                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                onTouchStart={handleTouchFeedback}
-              >
-                QUIERO LA MEJOR OPCIÓN - PLAN A
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </motion.div>
-          </div>
+          {/* Sem CTA após comparativo - Evitamos CTAs excessivos */}
         </motion.div>
-        
-                {/* Testimonios Categorizados */}
+
+        {/* Testimonios Categorizados */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
@@ -1287,7 +1260,7 @@ export default function ResultPage() {
               </div>
             </div>
             
-            {/* CTA após depoimentos */}
+            {/* CTA após depoimentos - Quinto CTA estratégico */}
             <div className="mt-8 text-center">
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -1367,25 +1340,12 @@ export default function ResultPage() {
                   VALOR TOTAL DE LOS BONOS: <span className="text-2xl">$485</span> - HOY INCLUIDOS GRATIS
                 </p>
                 
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button
-                    onClick={handlePurchase}
-                    size="lg"
-                    className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                    onTouchStart={handleTouchFeedback}
-                  >
-                    QUIERO TODOS LOS BONOS AHORA
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </motion.div>
+                {/* Sem CTA aqui - Evitamos CTAs excessivos */}
               </div>
             </div>
           </div>
         </motion.div>
-        
+
         {/* Oferta Principal Consolidada */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -1509,7 +1469,7 @@ export default function ResultPage() {
                 </div>
               </div>
 
-              {/* CTA Unificado */}
+              {/* CTA Principal - Sexto CTA estratégico (o mais importante) */}
               <motion.div
                 animate={{
                   scale: [1, 1.05, 1],
@@ -1622,7 +1582,7 @@ export default function ResultPage() {
             </Card>
           </div>
           
-          {/* CTA após garantias */}
+          {/* CTA após garantias - Sétimo CTA estratégico */}
           <div className="mt-8 text-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -1717,25 +1677,9 @@ export default function ResultPage() {
             </Card>
           </div>
           
-          {/* CTA após perguntas frequentes */}
-          <div className="mt-8 text-center">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Button
-                onClick={handlePurchase}
-                size="lg"
-                className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                onTouchStart={handleTouchFeedback}
-              >
-                QUIERO EMPEZAR AHORA
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </motion.div>
-          </div>
+          {/* Sem CTA após perguntas frequentes - Evitamos CTAs excessivos */}
         </motion.div>
-        
+
         {/* Testimonios - Video */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1773,7 +1717,7 @@ export default function ResultPage() {
                   ¡Mira lo que nuestros clientes están diciendo sobre los resultados!
                 </p>
                 
-                {/* CTA após vídeo */}
+                {/* CTA após vídeo - Oitavo CTA estratégico */}
                 <div className="mt-6">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
@@ -1795,7 +1739,7 @@ export default function ResultPage() {
           </div>
         </motion.div>
 
-        {/* CTA Final - Personalizado */}
+        {/* CTA Final - Personalizado - CTA final e mais impactante */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
@@ -1848,46 +1792,6 @@ export default function ResultPage() {
             </p>
           </div>
         </motion.div>
-      </div>
-      
-      {/* CTA Fixo na parte inferior da tela */}
-      <div className="sticky bottom-0 left-0 right-0 bg-gradient-to-r from-black/90 to-gray-900/90 p-4 backdrop-blur-md z-50 border-t-2 border-orange-500">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-left hidden sm:block">
-            <p className="text-orange-400 font-bold">Tu Resultado del Quiz:</p>
-            <p className="text-white text-xl font-bold">97% de Probabilidad de Reconquista</p>
-          </div>
-          
-          <motion.div
-            animate={{
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "reverse",
-            }}
-            className="w-full sm:w-auto"
-          >
-            <Button
-              onClick={handlePurchase}
-              size="lg"
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-extrabold py-4 px-6 rounded-full text-lg shadow-xl border-2 border-white/20 w-full sm:w-auto"
-              onTouchStart={handleTouchFeedback}
-            >
-              ACTIVAR MI PLAN DE RECONQUISTA AHORA
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </motion.div>
-          
-          <div className="text-center sm:text-right text-white text-sm">
-            <div className="flex items-center justify-center sm:justify-end">
-              <Clock className="w-4 h-4 mr-1 text-red-400" />
-              <CountdownTimer minutes={15} seconds={0} />
-            </div>
-            <p className="text-orange-300">{recentBuyers} personas activaron hoy</p>
-          </div>
-        </div>
       </div>
       
       {/* Estilos CSS específicos para mobile */}
