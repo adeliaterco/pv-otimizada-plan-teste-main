@@ -1188,14 +1188,6 @@ export default function ResultPage() {
                       />
                     </div>
                     
-                    <div className="text-center">
-                      <h4 className="text-xl font-bold text-orange-400 mb-2">
-                        "En 19 días él volvió suplicando perdón"
-                      </h4>
-                      <p className="text-gray-300">
-                        - María C., reconquistó su relación después de 6 meses separada
-                      </p>
-                    </div>
                   </CardContent>
                 </Card>
               </div>
