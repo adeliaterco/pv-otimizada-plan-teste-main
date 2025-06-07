@@ -959,7 +959,7 @@ export default function ResultPage() {
           </div>
         </motion.div>
 
-        {/* Comparativo con Alternativas - SIMPLIFICADO */}
+        {/* Comparativo com Alternativas - SIMPLIFICADO */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
@@ -1169,54 +1169,57 @@ export default function ResultPage() {
               </div>
             </div>
             
-{/* VÍDEO DEPOIMENTO - VERSÃO ULTRA SIMPLES */}
-<div className="mt-12 mb-12">
-  <div className="max-w-4xl mx-auto">
-    <h3 className="text-3xl font-bold text-white text-center mb-2">VE LO QUE DICE QUIEN YA LO LOGRÓ</h3>
-    <p className="text-orange-400 text-center font-semibold mb-8">
-      Testimonio real de alguien que recuperó su relación en menos de 21 días
-    </p>
-    
-    <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-orange-500 shadow-2xl">
-      <CardContent className="p-6">
-        <div className="aspect-video bg-black rounded-lg mb-4">
-          <iframe 
-            src="https://fast.wistia.net/embed/iframe/oqyjs7cler"
-            className="w-full h-full rounded-lg"
-            allowFullScreen
-          />
-        </div>
-        
-        <div className="text-center">
-          <h4 className="text-xl font-bold text-orange-400 mb-2">
-            "En 19 días él volvió suplicando perdón"
-          </h4>
-          <p className="text-gray-300">
-            - María C., reconquistó su relación después de 6 meses separada
-          </p>
-        </div>
-      </CardContent>
-    </Card>
-  </div>
-</div>
+            {/* VÍDEO DEPOIMENTO - VERSÃO ULTRA SIMPLES - CORRIGIDO */}
+            <div className="mt-12 mb-12">
+              <div className="max-w-4xl mx-auto">
+                <h3 className="text-3xl font-bold text-white text-center mb-2">VE LO QUE DICE QUIEN YA LO LOGRÓ</h3>
+                <p className="text-orange-400 text-center font-semibold mb-8">
+                  Testimonio real de alguien que recuperó su relación en menos de 21 días
+                </p>
+                
+                <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-orange-500 shadow-2xl">
+                  <CardContent className="p-6">
+                    <div className="aspect-video bg-black rounded-lg mb-4">
+                      <iframe 
+                        src="https://fast.wistia.net/embed/iframe/oqyjs7cler"
+                        className="w-full h-full rounded-lg"
+                        allowFullScreen={true}
+                        title="Testimonio de reconquista"
+                      />
+                    </div>
+                    
+                    <div className="text-center">
+                      <h4 className="text-xl font-bold text-orange-400 mb-2">
+                        "En 19 días él volvió suplicando perdón"
+                      </h4>
+                      <p className="text-gray-300">
+                        - María C., reconquistó su relación después de 6 meses separada
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
 
-{/* CTA após vídeo */}
-<div className="mt-8 text-center">
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    <Button
-      onClick={handlePurchase}
-      size="lg"
-      className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-      onTouchStart={handleTouchFeedback}
-    >
-      QUIERO RESULTADOS COMO MARÍA
-      <ArrowRight className="w-5 h-5 ml-2" />
-    </Button>
-  </motion.div>
-</div>
+            {/* CTA após vídeo */}
+            <div className="mt-8 text-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  onClick={handlePurchase}
+                  size="lg"
+                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  onTouchStart={handleTouchFeedback}
+                >
+                  QUIERO RESULTADOS COMO MARÍA
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Seção de Bônus Melhorada - CORRIGIDA PARA MOBILE */}
         <motion.div
