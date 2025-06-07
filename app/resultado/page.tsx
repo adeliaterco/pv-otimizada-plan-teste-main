@@ -1182,18 +1182,10 @@ export default function ResultPage() {
         <div className="relative aspect-video bg-black rounded-lg overflow-hidden mb-4">
           <iframe 
             src="https://fast.wistia.net/embed/iframe/oqyjs7cler?videoFoam=true"
-            title="Testimonio Plan A - Reconquista"
+            title="Testimonio Plan A"
             allow="autoplay; fullscreen"
             allowFullScreen
-            frameBorder="0"
-            className="w-full h-full rounded-lg"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%'
-            }}
+            className="absolute inset-0 w-full h-full rounded-lg"
           />
         </div>
         
@@ -1221,7 +1213,7 @@ export default function ResultPage() {
   </div>
 </div>
 
-{/* CTA após vídeo depoimento - Quinto CTA estratégico POTENCIALIZADO */}
+{/* CTA após vídeo depoimento */}
 <div className="mt-8 text-center">
   <motion.div
     whileHover={{ scale: 1.05 }}
