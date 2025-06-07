@@ -168,7 +168,7 @@ export default function ResultPage() {
                     <div className="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-60 animate-pulse"></div>
                     <div className="relative z-10 w-40 h-40 mx-auto bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-4 border-white">
                       <div className="text-center">
-                        <span className="text-4xl font-extrabold text-white">97%</span>
+                        <span className="text-4xl font-extrabold text-white">91%</span>
                         <p className="text-sm font-bold text-white">COMPATIBLE</p>
                       </div>
                     </div>
