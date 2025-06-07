@@ -1189,7 +1189,7 @@ export default function ResultPage() {
           </div>
         </motion.div>
 
-        {/* Seção de Bônus Melhorada - SIMPLIFICADA PARA 2 BÔNUS PRINCIPAIS */}
+        {/* Seção de Bônus Melhorada - CORRIGIDA PARA MOBILE */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
@@ -1201,8 +1201,8 @@ export default function ResultPage() {
           
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Bônus 1 - 21 Gatillos */}
-              <Card className="bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border-2 border-yellow-500">
+              {/* Bônus 1 - 21 Gatilhos - CORRIGIDO PARA MOBILE */}
+              <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-yellow-500">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center mr-4 flex-shrink-0">
@@ -1217,13 +1217,13 @@ export default function ResultPage() {
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 mb-4">
+                  <p className="text-white mb-4">
                     Este bono te da acceso a 21 técnicas psicológicas específicas que despiertan sentimientos profundos en {getPersonalizedPronoun()}. Mientras el Plan A te da la estrategia completa, estos gatillos son las "llaves emocionales" que aceleran todo el proceso.
                   </p>
                   
                   <div className="bg-black/30 p-3 rounded-lg">
                     <h5 className="font-bold text-yellow-300 mb-2">INCLUYE:</h5>
-                    <ul className="space-y-2 text-gray-300">
+                    <ul className="space-y-2 text-white">
                       <li className="flex items-start">
                         <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
                         <span>Gatillos de nostalgia que activan recuerdos positivos</span>
@@ -1241,8 +1241,8 @@ export default function ResultPage() {
                 </CardContent>
               </Card>
               
-              {/* Bônus 2 - Protocolo de Emergencia */}
-              <Card className="bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border-2 border-yellow-500">
+              {/* Bônus 2 - Protocolo de Emergência - CORRIGIDO PARA MOBILE */}
+              <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-yellow-500">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center mr-4 flex-shrink-0">
@@ -1257,13 +1257,13 @@ export default function ResultPage() {
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 mb-4">
+                  <p className="text-white mb-4">
                     Guía paso a paso para situaciones críticas donde necesitas actuar rápidamente para evitar perder a {getPersonalizedPronoun()} para siempre. Este protocolo es crucial para los primeros días después de la ruptura.
                   </p>
                   
                   <div className="bg-black/30 p-3 rounded-lg">
                     <h5 className="font-bold text-yellow-300 mb-2">INCLUYE:</h5>
-                    <ul className="space-y-2 text-gray-300">
+                    <ul className="space-y-2 text-white">
                       <li className="flex items-start">
                         <Check className="w-4 h-4 text-green-400 mr-2 mt-1" />
                         <span>Qué hacer en las primeras 72 horas críticas</span>
@@ -1385,7 +1385,7 @@ export default function ResultPage() {
                 </div>
               </div>
 
-              {/* CTA Principal - Sexto CTA estratégico (o mais importante) */}
+              {/* CTA Principal - Sexto CTA estratégico (ou mais importante) */}
               <motion.div
                 animate={{
                   scale: [1, 1.05, 1],
