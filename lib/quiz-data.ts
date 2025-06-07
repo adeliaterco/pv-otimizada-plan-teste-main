@@ -87,12 +87,6 @@ export const quizSteps = [
       "De 6 meses a 1 año - Fase crítica que responde bien a los 21 Gatillos Emocionales",
       "Menos de 6 meses - Requiere técnicas específicas de reconexión rápida",
     ],
-    bonusUnlock: {
-      id: 2,
-      title: "PROTOCOLO DE EMERGENCIA 72H",
-      value: 37,
-      description: "Qué hacer cuando todo parece perdido y tienes 72 horas para actuar.",
-    },
   },
   {
     id: 6,
@@ -177,10 +171,10 @@ export const quizSteps = [
       ],
     },
     bonusUnlock: {
-      id: 3,
-      title: "ESTRATEGIAS ANTI-COMPETENCIA",
-      value: 29,
-      description: "Cómo ganar cuando hay otra persona en el juego.",
+      id: 2,
+      title: "PROTOCOLO DE EMERGENCIA 72H",
+      value: 37,
+      description: "Qué hacer cuando todo parece perdido y tienes 72 horas para actuar.",
     },
     elements: {
       profileComplete: "77%",
@@ -196,12 +190,6 @@ export const quizSteps = [
     subtext: "El 91% de las personas que seleccionaron nivel 4 reconquistaron a su ex en menos de 21 días usando el PLAN A.",
     options: ["1 - No estoy seguro", "2 - Lo estoy considerando", "3 - Lo quiero bastante", "4 - Lo quiero mucho"],
     note: "Solo trabajo con personas determinadas a transformar su situación amorosa. El PLAN A - RECONQUISTA RÁPIDA fue desarrollado para quien está listo para actuar.",
-    bonusUnlock: {
-      id: 4,
-      title: "RECONQUISTA GARANTIZADA",
-      value: 24,
-      description: "El sistema que convierte el primer encuentro en reconciliación.",
-    },
     elements: {
       thermometer: true,
       profileComplete: "85%",
@@ -242,15 +230,6 @@ export const quizSteps = [
       "EL 91% DE MIS ALUMNOS VIERON RESULTADOS EXPRESIVOS EN LOS PRIMEROS 7 DÍAS APLICANDO EL PLAN A - RECONQUISTA RÁPIDA",
     description: "",
     options: ["¡YO TAMBIÉN QUIERO ESOS RESULTADOS!"],
-    bonusUnlock: {
-      id: 5,
-      title: {
-        masculino: "CÓMO IDENTIFICAR SI ELLA TODAVÍA TIENE SENTIMIENTOS POR TI",
-        feminino: "CÓMO IDENTIFICAR SI ÉL TODAVÍA TIENE SENTIMIENTOS POR TI",
-      },
-      value: 17,
-      description: "15 señales inconfundibles que revelan si existe una oportunidad real de reconquista",
-    },
     elements: {
       bigNumber: "91%",
       profileComplete: "98%",
@@ -267,7 +246,7 @@ export const quizSteps = [
       masculino: ["¡SÍ, QUIERO RECONQUISTARLA AHORA!"],
       feminino: ["¡SÍ, QUIERO RECONQUISTARLO AHORA!"],
     },
-    note: "¡Incluye los 4 bonos exclusivos (valor total: $137) que aceleran tu reconquista!",
+    note: "¡Incluye los 2 bonos exclusivos (valor total: $84) que aceleran tu reconquista!",
     elements: {
       plan21Days: true,
       profileComplete: "100%",
@@ -316,28 +295,6 @@ export const bonuses = [
       "✓ Independencia Emocional",
       "✓ Comunicación Magnética"
     ]
-  },
-  {
-    id: 3,
-    title: "ESTRATEGIAS ANTI-COMPETENCIA",
-    value: 29,
-    description: "Cómo ganar cuando hay otra persona en el juego.",
-    details: [
-      "✓ Protocolo Anti-Traición",
-      "✓ Reactivar Relaciones Muertas",
-      "✓ Vencer a la Competencia"
-    ]
-  },
-  {
-    id: 4,
-    title: "RECONQUISTA GARANTIZADA",
-    value: 24,
-    description: "El sistema que convierte el primer encuentro en reconciliación.",
-    details: [
-      "✓ Primer Encuentro Perfecto",
-      "✓ Reconexión Física y Emocional",
-      "✓ 101 Textos Que Funcionan"
-    ]
   }
 ]
 
@@ -367,7 +324,7 @@ export const testimonials = [
 export const socialProofMessages = [
   "¡Estás entre el 17% más determinado a reconquistar!",
   "¡Tu perfil muestra 91% de compatibilidad con el método!",
-  "¡Has desbloqueado los 4 bonos - valor total de $137!",
+  "¡Has desbloqueado los 2 bonos - valor total de $84!",
   "El 87% de las personas en tu situación lograron resultados en menos de 14 días",
   "Estás más comprometido que el 73% de las personas que hicieron esta prueba",
 ]
