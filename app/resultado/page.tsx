@@ -80,9 +80,9 @@ export default function ResultPage() {
 
   const getPersonalizedCTA = () => {
     if (userGender === "MASCULINO") {
-      return "RECONQUISTAR A ELLA AHORA"
+      return "RECONQUISTAR AHORA"
     } else if (userGender === "FEMININO") {
-      return "RECONQUISTAR A ÉL AHORA"
+      return "RECONQUISTAR AHORA"
     }
     return "RECONQUISTAR AHORA"
   }
@@ -133,7 +133,7 @@ export default function ResultPage() {
           className="bg-red-600 text-white p-3 rounded-lg text-center mb-6 animate-pulse"
         >
           <AlertTriangle className="w-5 h-5 inline-block mr-2" />
-          <span className="font-bold">OFERTA LIMITADA:</span> El Sistema Plan A + los 2 bonos esenciales solo estarán disponibles por <span className="font-bold text-yellow-300">$9</span> durante las próximas <CountdownTimer minutes={15} seconds={0} />.
+          <span className="font-bold">OFERTA LIMITADA:</span> El Sistema Plan A + los 2 bonos solo por <span className="font-bold text-yellow-300">$9</span> durante las próximas <CountdownTimer minutes={15} seconds={0} />.
         </motion.div>
         
         <motion.div
@@ -383,7 +383,7 @@ export default function ResultPage() {
                     className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                     onTouchStart={handleTouchFeedback}
                   >
-                    QUIERO ACTIVAR MI PLAN AHORA
+                    ACTIVAR MI PLAN AHORA
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </motion.div>
@@ -681,7 +681,7 @@ export default function ResultPage() {
                 className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 onTouchStart={handleTouchFeedback}
               >
-                QUIERO EMPEZAR MI PLAN DE 21 DÍAS
+                EMPEZAR MI PLAN DE 21 DÍAS
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>
@@ -775,7 +775,7 @@ export default function ResultPage() {
                       className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                       onTouchStart={handleTouchFeedback}
                     >
-                      SÍ, ESTO ES PARA MÍ - QUIERO EMPEZAR
+                      SÍ, ESTO ES PARA MÍ
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </motion.div>
@@ -912,7 +912,7 @@ export default function ResultPage() {
                     <div className="bg-yellow-600 text-white p-3">
                       <h5 className="text-xl font-bold">
                         <Gift className="w-5 h-5 inline-block mr-2" />
-                        BONOS ESENCIALES INCLUIDOS
+                        BONOS INCLUIDOS
                       </h5>
                     </div>
                     <div className="p-4 text-gray-300">
@@ -920,7 +920,7 @@ export default function ResultPage() {
                         <div className="bg-gray-800/70 p-4 rounded-lg border border-yellow-500">
                           <h6 className="text-lg font-bold text-yellow-400 mb-2">BONO #1: 21 GATILLOS EMOCIONALES</h6>
                           <p className="text-sm mb-2">
-                            21 técnicas psicológicas específicas que despiertan sentimientos profundos en {getPersonalizedPronoun()}. Cada gatillo incluye exactamente qué decir y cuándo usarlo.
+                            21 técnicas psicológicas que despiertan sentimientos profundos en {getPersonalizedPronoun()}. Cada gatillo incluye exactamente qué decir y cuándo usarlo.
                           </p>
                           <div className="text-yellow-300 font-bold">Valor: $47 → GRATIS</div>
                         </div>
@@ -949,7 +949,7 @@ export default function ResultPage() {
                       className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                       onTouchStart={handleTouchFeedback}
                     >
-                      QUIERO ACCESO COMPLETO AHORA
+                      ACCEDER AHORA
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </motion.div>
@@ -975,7 +975,7 @@ export default function ResultPage() {
                   <th className="p-4 text-left">Opción</th>
                   <th className="p-4 text-center">Tiempo</th>
                   <th className="p-4 text-center">Costo</th>
-                  <th className="p-4 text-center">Tasa de Éxito</th>
+                  <th className="p-4 text-center">Éxito</th>
                   <th className="p-4 text-center">Recomendado</th>
                 </tr>
               </thead>
@@ -1181,7 +1181,7 @@ export default function ResultPage() {
                   className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                   onTouchStart={handleTouchFeedback}
                 >
-                  QUIERO RESULTADOS COMO ESTOS
+                  QUIERO RESULTADOS ASÍ
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </motion.div>
@@ -1197,7 +1197,7 @@ export default function ResultPage() {
           id="bonos"
           className="mb-12"
         >
-          <h3 className="text-3xl font-bold text-white text-center mb-8">BONOS ESENCIALES INCLUIDOS</h3>
+          <h3 className="text-3xl font-bold text-white text-center mb-8">BONOS INCLUIDOS</h3>
           
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-6">
@@ -1321,7 +1321,7 @@ export default function ResultPage() {
                         <BookOpen className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <span className="font-bold text-xl">PLAN A: Sistema Completo de Reconquista</span>
+                        <span className="font-bold text-xl">PLAN A: Sistema Completo</span>
                         <p className="text-sm text-gray-200">Sistema paso a paso de 21 días con los 4 módulos completos</p>
                         <div className="mt-1">
                           <span className="text-gray-300 line-through mr-2">$97</span>
@@ -1372,7 +1372,7 @@ export default function ResultPage() {
                     
                     <div className="text-left">
                       <h5 className="font-bold text-yellow-300 mb-1">TU AHORRO:</h5>
-                      <div className="text-2xl font-bold text-green-400">$172 (95%)</div>
+                      <div className="text-2xl font-bold text-green-400">$172</div>
                     </div>
                     
                     <div className="text-left">
@@ -1465,7 +1465,7 @@ export default function ResultPage() {
                 className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 onTouchStart={handleTouchFeedback}
               >
-                ACTIVAR MI PLAN CON GARANTÍA TOTAL
+                ACTIVAR MI PLAN CON GARANTÍA
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>
@@ -1559,13 +1559,13 @@ export default function ResultPage() {
                 className="bg-yellow-500 hover:bg-yellow-600 text-black font-extrabold py-6 px-8 rounded-full text-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
                 onTouchStart={handleTouchFeedback}
               >
-                {getPersonalizedCTA()}
+                RECONQUISTAR AHORA
                 <ArrowRight className="w-6 h-6 ml-2" />
               </Button>
             </motion.div>
             
             <p className="text-yellow-300 text-sm">
-              Acceso inmediato • Garantía de 30 días • Sistema completo + 2 bonos esenciales
+              Acceso inmediato • Garantía de 30 días • Sistema completo + 2 bonos
             </p>
           </div>
         </motion.div>
