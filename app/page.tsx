@@ -252,26 +252,26 @@ export default function HomePage() {
 
               <div className="mb-10">
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
-                  Descubre si aún es posible reconquistar a tu ex
+                  Descubre si aún es posible <span className="text-red-500">reconquistar a tu ex</span>
                   <br />
-                  <span className="text-orange-400">En solo 2 minutos</span>
+                  <span className="text-orange-400">En menos de 14 días</span>
                 </h3>
 
                 <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
                   <p className="text-lg text-blue-800 font-semibold mb-2">
-                    ✓ Test rápido y personalizado
+                    ✓ Método de 3 pasos que funciona incluso después de una traición
                   </p>
                   <p className="text-blue-700">
-                    Responde algunas preguntas simples y recibe un análisis de tu situación específica.
+                    Sin textão, sumiço o juegos mentales - Descubre si tu caso tiene solución en solo 2 minutos.
                   </p>
                 </div>
 
                 <div className="bg-green-50 border border-green-300 rounded-lg p-6 mb-8">
                   <h4 className="text-xl font-bold text-green-800 mb-3">
-                    ✅ DESCUBRE AHORA SI AÚN HAY POSIBILIDAD DE RECONQUISTA
+                    ✅ DESCUBRE SI AÚN PUEDES RECUPERAR A TU EX
                   </h4>
                   <p className="text-green-700 text-lg">
-                    Test rápido de 2 minutos revela si tu caso tiene solución y qué estrategia usar
+                    El mismo método usado por más de 3.247 hombres que recuperaron a sus ex con éxito
                   </p>
                 </div>
 
@@ -310,7 +310,7 @@ export default function HomePage() {
                     </>
                   ) : (
                     <>
-                      INICIAR TEST GRATUITO
+                      QUIERO RECONQUISTAR A MI EX AHORA
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </>
                   )}
@@ -318,14 +318,14 @@ export default function HomePage() {
 
                 <div className="flex items-center justify-center gap-2 text-white mb-4">
                   <Clock className="w-5 h-5" />
-                  <p className="text-sm">Solo toma 2 minutos • Resultado inmediato</p>
+                  <p className="text-sm">Solo toma 2 minutos • Resultado personalizado inmediato</p>
                 </div>
 
                 <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mb-4">
                   <div className="flex items-center justify-center gap-2 text-amber-800">
                     <Users className="w-5 h-5" />
                     <p className="text-sm font-bold">
-                      🔥 ATENCIÓN: Más de 200 personas hacen este test por día. ¡No pierdas tu oportunidad!
+                      🔥 DISPONIBLE POR TIEMPO LIMITADO: Más de 200 hombres recuperaron a sus ex esta semana
                     </p>
                   </div>
                 </div>
