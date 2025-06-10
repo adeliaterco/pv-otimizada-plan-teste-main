@@ -222,79 +222,86 @@ export default function HomePage() {
           </div>
         )}
         
-        {/* Conteúdo principal simplificado */}
-        <div className="max-w-3xl w-full text-center mx-auto">
-          <div className="mb-8">
-            {/* Imagen principal - elemento LCP */}
-            <div className="relative w-28 h-28 mx-auto mb-6">
-              {/* Efectos de luz simplificados */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
-              
-              {/* Imagen redondeada optimizada - potencial LCP */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10">
-                <img
-                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-                  alt="Logo Plan A - Reconquista"
-                  className="w-full h-full object-cover"
-                  fetchpriority="high"
-                  width="112"
-                  height="112"
-                  id="lcp-image"
-                />
+        {/* Contenido principal - sin animaciones iniciales para mejorar FCP y LCP */}
+        <div className="max-w-3xl w-full text-center">
+          <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-lg border-orange-500/30 shadow-2xl border-2">
+            <CardContent className="p-8">
+              <div className="mb-8">
+                {/* Imagen principal - elemento LCP */}
+                <div className="relative w-28 h-28 mx-auto mb-6">
+                  {/* Efectos de luz simplificados */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
+                  
+                  {/* Imagen redondeada optimizada - potencial LCP */}
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10">
+                    <img
+                      src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
+                      alt="Logo Plan A - Reconquista"
+                      className="w-full h-full object-cover"
+                      fetchpriority="high"
+                      width="112"
+                      height="112"
+                      id="lcp-image"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          {/* Copys sem quadrados, simples e diretas */}
-          <div className="mb-6">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">PLAN A <span className="text-orange-400">RECONQUISTA</span></h1>
-            <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 leading-tight">
-              Conheça o <span className="text-red-500">Truque de 3 etapas</span> que está fazendo <span className="text-red-500">mulheres voltarem até depois da traição</span>
-            </h3>
-            <p className="text-base md:text-lg text-white mb-2 font-medium">
-              ✓ Funciona com qualquer mulher... <span className="text-gray-300">sem textão, sumiço ou joguinhos.</span>
-            </p>
-            <p className="text-base md:text-lg text-green-400 font-semibold mb-2">
-              E o melhor? Foi o mesmo usado por Fernando Mocó e até Neymar.
-            </p>
-            <p className="text-base md:text-lg text-green-200 mb-4">
-              Descubra agora como aplicar esse método em seu caso específico.
-            </p>
-          </div>
+              <div className="mb-10">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
+                  Conheça o <span className="text-red-500">Truco de 3 pasos</span> que está funcionando 
+                  <br />
+                  <span className="text-red-500">hace que las mujeres regresen incluso después de una traición</span>
+                </h3>
 
-          {/* Imagem destaque */}
-          <img 
-            src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/IMAGE-INICIAL-NOVA-1.png" 
-            alt="Imagem Inicial" 
-            className="w-full h-auto rounded-lg mb-8 mx-auto"
-          />
+                <p className="text-lg text-white font-semibold mb-2">
+                  ✓ Funciona con cualquier mujer...
+                </p>
+                <p className="text-white mb-6">
+                  sin mensajes largos, desaparecer ni jugar juegos.
+                </p>
 
-          <div>
-            {/* Botón con feedback visual de carga */}
-            <Button
-              onClick={handleStart}
-              disabled={isLoading || !isOnline}
-              size="lg"
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg transition-all duration-300 mb-4 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <>
-                  <span>PREPARANDO...</span>
-                  <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                </>
-              ) : (
-                <>
-                  QUERO DESCOBRIR O TRUQUE
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </>
-              )}
-            </Button>
-            
-            <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
-              <Lock className="w-3 h-3 mr-1" />
-              Suas respostas são confidenciais e protegidas
-            </div>
-          </div>
+                <h4 className="text-xl font-bold text-green-500 mb-6">
+                  ✅ ¿Y lo mejor? Es el mismo que usaron grandes celebridades.
+                </h4>
+
+                <img 
+                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/02-IMAGE-INICIAL-NOVA.png" 
+                  alt="Imagem Inicial" 
+                  className="w-full h-auto rounded-lg mb-8"
+                />
+
+              </div>
+
+              <div>
+                
+                {/* Botón con feedback visual de carga */}
+                <Button
+                  onClick={handleStart}
+                  disabled={isLoading || !isOnline}
+                  size="lg"
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg transition-all duration-300 mb-4 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <>
+                      <span>PREPARANDO...</span>
+                      <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    </>
+                  ) : (
+                    <>
+                      QUIERO DESCUBRIR EL TRUCO
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </>
+                  )}
+                </Button>
+                
+                <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
+                  <Lock className="w-3 h-3 mr-1" />
+                  Tus respuestas son confidenciales y están protegidas
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
       
