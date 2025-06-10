@@ -268,11 +268,8 @@ export default function HomePage() {
 
                 <div className="bg-green-50 border border-green-300 rounded-lg p-6 mb-8">
                   <h4 className="text-xl font-bold text-green-800 mb-3">
-                    ✅ E o melhor? Foi o mesmo usado por Fernando Mocó e até Neymar.
+                    ✅ E o melhor? Foi o mesmo usado por grandes famosos.
                   </h4>
-                  <p className="text-green-700 text-lg">
-                    Descubra agora como aplicar esse método em seu caso específico
-                  </p>
                 </div>
 
                 <img 
