@@ -184,7 +184,7 @@ export default function HomePage() {
         <link rel="preconnect" href="https://comprarplanseguro.shop" />
         {/* Meta tags para SEO y rendimiento */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="description" content="Descubre si aún es posible reconquistar a tu ex en solo 2 minutos con el test del Plan A Reconquista" />
+        <meta name="description" content="Conheça o Truque de 3 etapas que está fazendo mulheres voltarem até depois da traição" />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 flex items-center justify-center p-4">
@@ -222,121 +222,79 @@ export default function HomePage() {
           </div>
         )}
         
-        {/* Contenido principal - sin animaciones iniciales para mejorar FCP y LCP */}
-        <div className="max-w-3xl w-full text-center">
-          <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-lg border-orange-500/30 shadow-2xl border-2">
-            <CardContent className="p-8">
-              <div className="mb-8">
-                {/* Imagen principal - elemento LCP */}
-                <div className="relative w-28 h-28 mx-auto mb-6">
-                  {/* Efectos de luz simplificados */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
-                  
-                  {/* Imagen redondeada optimizada - potencial LCP */}
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10">
-                    <img
-                      src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-                      alt="Logo Plan A - Reconquista"
-                      className="w-full h-full object-cover"
-                      fetchpriority="high"
-                      width="112"
-                      height="112"
-                      id="lcp-image"
-                    />
-                  </div>
-                </div>
-
-                <h1 className="text-5xl md:text-6xl font-bold text-white mb-4" id="lcp-title">PLAN A</h1>
-                <h2 className="text-3xl md:text-4xl font-semibold text-orange-400 mb-8">RECONQUISTA</h2>
+        {/* Conteúdo principal simplificado */}
+        <div className="max-w-3xl w-full text-center mx-auto">
+          <div className="mb-8">
+            {/* Imagen principal - elemento LCP */}
+            <div className="relative w-28 h-28 mx-auto mb-6">
+              {/* Efectos de luz simplificados */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/20 to-red-600/20 blur-lg"></div>
+              
+              {/* Imagen redondeada optimizada - potencial LCP */}
+              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg shadow-orange-500/30 z-10">
+                <img
+                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
+                  alt="Logo Plan A - Reconquista"
+                  className="w-full h-full object-cover"
+                  fetchpriority="high"
+                  width="112"
+                  height="112"
+                  id="lcp-image"
+                />
               </div>
+            </div>
+          </div>
 
-              <div className="mb-10">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
-                  Descubre si aún es posible reconquistar a tu ex
-                  <br />
-                  <span className="text-orange-400">En solo 2 minutos</span>
-                </h3>
+          {/* Copys sem quadrados, simples e diretas */}
+          <div className="mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">PLAN A <span className="text-orange-400">RECONQUISTA</span></h1>
+            <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 leading-tight">
+              Conheça o <span className="text-red-500">Truque de 3 etapas</span> que está fazendo <span className="text-red-500">mulheres voltarem até depois da traição</span>
+            </h3>
+            <p className="text-base md:text-lg text-white mb-2 font-medium">
+              ✓ Funciona com qualquer mulher... <span className="text-gray-300">sem textão, sumiço ou joguinhos.</span>
+            </p>
+            <p className="text-base md:text-lg text-green-400 font-semibold mb-2">
+              E o melhor? Foi o mesmo usado por Fernando Mocó e até Neymar.
+            </p>
+            <p className="text-base md:text-lg text-green-200 mb-4">
+              Descubra agora como aplicar esse método em seu caso específico.
+            </p>
+          </div>
 
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
-                  <p className="text-lg text-blue-800 font-semibold mb-2">
-                    ✓ Test rápido y personalizado
-                  </p>
-                  <p className="text-blue-700">
-                    Responde algunas preguntas simples y recibe un análisis de tu situación específica.
-                  </p>
-                </div>
+          {/* Imagem destaque */}
+          <img 
+            src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/IMAGE-INICIAL-NOVA-1.png" 
+            alt="Imagem Inicial" 
+            className="w-full h-auto rounded-lg mb-8 mx-auto"
+          />
 
-                <div className="bg-green-50 border border-green-300 rounded-lg p-6 mb-8">
-                  <h4 className="text-xl font-bold text-green-800 mb-3">
-                    ✅ DESCUBRE AHORA SI AÚN HAY POSIBILIDAD DE RECONQUISTA
-                  </h4>
-                  <p className="text-green-700 text-lg">
-                    Test rápido de 2 minutos revela si tu caso tiene solución y qué estrategia usar
-                  </p>
-                </div>
-
-                <div className="flex justify-center items-center gap-6 mb-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-400">{urgencyCount}</div>
-                    <div className="text-sm text-gray-300">personas lo hicieron hoy</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-green-400">91%</div>
-                    <div className="text-sm text-gray-300">tasa de éxito</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-orange-400">21</div>
-                    <div className="text-sm text-gray-300">días o menos</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-300 mb-6">
-                  Después de hacer clic, responderás algunas preguntas simples para recibir tu análisis personalizado.
-                </p>
-                
-                {/* Botón con feedback visual de carga */}
-                <Button
-                  onClick={handleStart}
-                  disabled={isLoading || !isOnline}
-                  size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg transition-all duration-300 mb-4 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? (
-                    <>
-                      <span>INICIANDO TU TEST...</span>
-                      <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    </>
-                  ) : (
-                    <>
-                      INICIAR TEST GRATUITO
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </>
-                  )}
-                </Button>
-
-                <div className="flex items-center justify-center gap-2 text-white mb-4">
-                  <Clock className="w-5 h-5" />
-                  <p className="text-sm">Solo toma 2 minutos • Resultado inmediato</p>
-                </div>
-
-                <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mb-4">
-                  <div className="flex items-center justify-center gap-2 text-amber-800">
-                    <Users className="w-5 h-5" />
-                    <p className="text-sm font-bold">
-                      🔥 ATENCIÓN: Más de 200 personas hacen este test por día. ¡No pierdas tu oportunidad!
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
-                  <Lock className="w-3 h-3 mr-1" />
-                  Tus respuestas son confidenciales y protegidas
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <div>
+            {/* Botón con feedback visual de carga */}
+            <Button
+              onClick={handleStart}
+              disabled={isLoading || !isOnline}
+              size="lg"
+              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg transition-all duration-300 mb-4 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <>
+                  <span>PREPARANDO...</span>
+                  <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                </>
+              ) : (
+                <>
+                  QUERO DESCOBRIR O TRUQUE
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </>
+              )}
+            </Button>
+            
+            <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
+              <Lock className="w-3 h-3 mr-1" />
+              Suas respostas são confidenciais e protegidas
+            </div>
+          </div>
         </div>
       </div>
       
