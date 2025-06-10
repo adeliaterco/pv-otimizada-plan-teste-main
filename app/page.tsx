@@ -184,7 +184,7 @@ export default function HomePage() {
         <link rel="preconnect" href="https://comprarplanseguro.shop" />
         {/* Meta tags para SEO y rendimiento */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="description" content="Descubre si aún es posible reconquistar a tu ex en solo 2 minutos con el test del Plan A Reconquista" />
+        <meta name="description" content="Conheça o Truque de 3 etapas que está fazendo mulheres voltarem até depois da traição" />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 flex items-center justify-center p-4">
@@ -252,48 +252,48 @@ export default function HomePage() {
 
               <div className="mb-10">
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
-                  Descubre si aún es posible <span className="text-red-500">reconquistar a tu ex</span>
+                  Conheça o <span className="text-red-500">Truque de 3 etapas</span> que está fazendo 
                   <br />
-                  <span className="text-orange-400">En menos de 14 días</span>
+                  <span className="text-red-500">mulheres voltarem até depois da traição</span>
                 </h3>
 
                 <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
                   <p className="text-lg text-blue-800 font-semibold mb-2">
-                    ✓ Método de 3 pasos que funciona incluso después de una traición
+                    ✓ Funciona com qualquer mulher...
                   </p>
                   <p className="text-blue-700">
-                    Sin textão, sumiço o juegos mentales - Descubre si tu caso tiene solución en solo 2 minutos.
+                    sem textão, sumiço ou joguinhos.
                   </p>
                 </div>
 
                 <div className="bg-green-50 border border-green-300 rounded-lg p-6 mb-8">
                   <h4 className="text-xl font-bold text-green-800 mb-3">
-                    ✅ DESCUBRE SI AÚN PUEDES RECUPERAR A TU EX
+                    ✅ E o melhor? Foi o mesmo usado por Fernando Mocó e até Neymar.
                   </h4>
                   <p className="text-green-700 text-lg">
-                    El mismo método usado por más de 3.247 hombres que recuperaron a sus ex con éxito
+                    Descubra agora como aplicar esse método em seu caso específico
                   </p>
                 </div>
 
                 <div className="flex justify-center items-center gap-6 mb-8">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-blue-400">{urgencyCount}</div>
-                    <div className="text-sm text-gray-300">personas lo hicieron hoy</div>
+                    <div className="text-sm text-gray-300">pessoas já descobriram</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-green-400">91%</div>
-                    <div className="text-sm text-gray-300">tasa de éxito</div>
+                    <div className="text-sm text-gray-300">taxa de sucesso</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-orange-400">21</div>
-                    <div className="text-sm text-gray-300">días o menos</div>
+                    <div className="text-sm text-gray-300">dias ou menos</div>
                   </div>
                 </div>
               </div>
 
               <div>
                 <p className="text-sm text-gray-300 mb-6">
-                  Después de hacer clic, responderás algunas preguntas simples para recibir tu análisis personalizado.
+                  Responda algumas perguntas simples e descubra como aplicar o truque no seu caso específico.
                 </p>
                 
                 {/* Botón con feedback visual de carga */}
@@ -301,16 +301,16 @@ export default function HomePage() {
                   onClick={handleStart}
                   disabled={isLoading || !isOnline}
                   size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg transition-all duration-300 mb-4 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-6 sm:px-8 rounded-full text-lg sm:text-xl shadow-lg transition-all duration-300 mb-4 w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <>
-                      <span>INICIANDO TU TEST...</span>
+                      <span>PREPARANDO...</span>
                       <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     </>
                   ) : (
                     <>
-                      QUIERO RECONQUISTAR A MI EX AHORA
+                      QUERO DESCOBRIR O TRUQUE
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </>
                   )}
@@ -318,21 +318,21 @@ export default function HomePage() {
 
                 <div className="flex items-center justify-center gap-2 text-white mb-4">
                   <Clock className="w-5 h-5" />
-                  <p className="text-sm">Solo toma 2 minutos • Resultado personalizado inmediato</p>
+                  <p className="text-sm">Apenas 2 minutos • Resultado imediato</p>
                 </div>
 
                 <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mb-4">
                   <div className="flex items-center justify-center gap-2 text-amber-800">
                     <Users className="w-5 h-5" />
                     <p className="text-sm font-bold">
-                      🔥 DISPONIBLE POR TIEMPO LIMITADO: Más de 200 hombres recuperaron a sus ex esta semana
+                      🔥 ATENÇÃO: Mais de 200 pessoas fazem este teste por dia. Não perca sua chance!
                     </p>
                   </div>
                 </div>
                 
                 <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
                   <Lock className="w-3 h-3 mr-1" />
-                  Tus respuestas son confidenciales y protegidas
+                  Suas respostas são confidenciais e protegidas
                 </div>
               </div>
             </CardContent>
