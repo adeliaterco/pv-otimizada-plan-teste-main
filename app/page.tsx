@@ -252,23 +252,23 @@ export default function HomePage() {
 
               <div className="mb-10">
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
-                  Conheça o <span className="text-red-500">Truque de 3 etapas</span> que está fazendo 
+                  Conheça o <span className="text-red-500">Truco de 3 pasos</span> que está funcionando 
                   <br />
-                  <span className="text-red-500">mulheres voltarem até depois da traição</span>
+                  <span className="text-red-500">hace que las mujeres regresen incluso después de una traición</span>
                 </h3>
 
                 <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
                   <p className="text-lg text-blue-800 font-semibold mb-2">
-                    ✓ Funciona com qualquer mulher...
+                    ✓ Funciona con cualquier mujer...
                   </p>
                   <p className="text-blue-700">
-                    sem textão, sumiço ou joguinhos.
+                    sin mensajes largos, desaparecer ni jugar juegos.
                   </p>
                 </div>
 
                 <div className="bg-green-50 border border-green-300 rounded-lg p-6 mb-8">
                   <h4 className="text-xl font-bold text-green-800 mb-3">
-                    ✅ E o melhor? Foi o mesmo usado por grandes famosos.
+                    ✅ ¿Y lo mejor? Es el mismo que usaron grandes celebridades.
                   </h4>
                 </div>
 
@@ -296,7 +296,7 @@ export default function HomePage() {
                     </>
                   ) : (
                     <>
-                      QUERO DESCOBRIR O TRUQUE
+                      QUIERO DESCUBRIR EL TRUCO
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </>
                   )}
@@ -304,7 +304,7 @@ export default function HomePage() {
                 
                 <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
                   <Lock className="w-3 h-3 mr-1" />
-                  Suas respostas são confidenciais e protegidas
+                  Tus respuestas son confidenciales y están protegidas
                 </div>
               </div>
             </CardContent>
