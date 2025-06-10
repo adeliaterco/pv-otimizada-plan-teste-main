@@ -278,9 +278,6 @@ export default function HomePage() {
               </div>
 
               <div>
-                <p className="text-sm text-gray-300 mb-6">
-                  Responda algumas perguntas simples e descubra como aplicar o truque no seu caso específico.
-                </p>
                 
                 {/* Botón con feedback visual de carga */}
                 <Button
