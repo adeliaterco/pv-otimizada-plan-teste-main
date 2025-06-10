@@ -245,9 +245,6 @@ export default function HomePage() {
                     />
                   </div>
                 </div>
-
-                <h1 className="text-5xl md:text-6xl font-bold text-white mb-4" id="lcp-title">PLAN A</h1>
-                <h2 className="text-3xl md:text-4xl font-semibold text-orange-400 mb-8">RECONQUISTA</h2>
               </div>
 
               <div className="mb-10">
