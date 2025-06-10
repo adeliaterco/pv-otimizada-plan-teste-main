@@ -275,20 +275,6 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <div className="flex justify-center items-center gap-6 mb-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-400">{urgencyCount}</div>
-                    <div className="text-sm text-gray-300">pessoas já descobriram</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-green-400">91%</div>
-                    <div className="text-sm text-gray-300">taxa de sucesso</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-orange-400">21</div>
-                    <div className="text-sm text-gray-300">dias ou menos</div>
-                  </div>
-                </div>
               </div>
 
               <div>
