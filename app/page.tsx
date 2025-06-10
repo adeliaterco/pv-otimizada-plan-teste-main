@@ -276,7 +276,7 @@ export default function HomePage() {
                 </div>
 
                 <img 
-                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/IMAGE-INICIAL-NOVA-1.png" 
+                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/02-IMAGE-INICIAL-NOVA.png" 
                   alt="Imagem Inicial" 
                   className="w-full h-auto rounded-lg mb-8"
                 />
